@@ -1,19 +1,20 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { getArticles } from '../../services/realworld-service';
+import { getArticles } from '../../store/actions';
 import Article from '../article/Article';
 
 const ArticleList = () => {
-  const [articles, setArticles] = useState([]);
-
-  const getData = async () => {
-    const data = await getArticles();
-    setArticles(data.articles);
-  };
+  const dispatch = useDispatch();
+  const articles = useSelector((state) => state.articles.articles);
 
   useEffect(() => {
-    getData();
+    dispatch(getArticles());
   }, []);
+
+  if (articles.length === 0) {
+    return <section className="article-list">loading</section>;
+  }
 
   return (
     <section className="article-list">
