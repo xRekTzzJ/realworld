@@ -159,6 +159,8 @@ body {
     grid-area: tags;
     height: 20px;
     width: fit-content;
+    max-width: 700px;
+    overflow: hidden;
 
     & span {
       margin: 0;
@@ -170,6 +172,7 @@ body {
       font-weight: 400;
       line-height: 14.52px;
       text-align: left;
+      white-space: nowrap;
       // cursor: pointer;
       // transition: 0.3s;
 

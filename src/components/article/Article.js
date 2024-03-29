@@ -12,7 +12,7 @@ const Article = ({ image, username, title, description, favoritesCount, favorite
         </div>
         <div className="article__tag-container">
           {tagList.map((i, index) => {
-            if (i.trim().length > 0) {
+            if (index < 10 && i.length) {
               return <span key={index}>{i}</span>;
             }
           })}
