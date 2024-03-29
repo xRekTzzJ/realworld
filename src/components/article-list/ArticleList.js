@@ -2,22 +2,33 @@ import { LoadingOutlined } from '@ant-design/icons';
 import { Pagination, Spin } from 'antd';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useParams, withRouter } from 'react-router-dom';
 
 import { getArticles } from '../../store/actions';
 import Article from '../article/Article';
 
-const ArticleList = () => {
+const ArticleList = ({ history }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const articles = useSelector((state) => state.articles.articles);
   const articlesCount = useSelector((state) => state.articles.articlesCount);
-  const currentPage = useSelector((state) => state.articles.page);
+
+  const { id } = useParams();
+
+  const renderArticles = async () => {
+    setLoading(true);
+    await dispatch(getArticles(id));
+    setLoading(false);
+  };
 
   useEffect(() => {
-    dispatch(getArticles());
-  }, []);
+    if (!id) {
+      history.push(`${1}`);
+    }
+    renderArticles();
+  }, [id]);
 
-  if (articles.length === 0 || loading) {
+  if (!articles.length || loading) {
     return (
       <section className="article-list">
         <Spin
@@ -53,18 +64,16 @@ const ArticleList = () => {
         ))}
       </section>
       <Pagination
-        current={currentPage}
+        current={id}
         total={Math.floor(articlesCount / 20) * 10}
         className="pagination"
         showSizeChanger={false}
-        onChange={async (e) => {
-          setLoading(true);
-          await dispatch(getArticles(e));
-          setLoading(false);
+        onChange={(e) => {
+          history.push(`${e}`);
         }}
       />
     </>
   );
 };
 
-export default ArticleList;
+export default withRouter(ArticleList);
