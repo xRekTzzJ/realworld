@@ -100,6 +100,10 @@ body {
   box-shadow: 0px 4px 12px 0px #00000026;
   padding: 16px 16px 24px;
   margin: 0;
+  display: grid;
+  grid-template-areas:
+    'header header'
+    'text rate';
 
   & p {
     font-family: Inter;
@@ -116,11 +120,12 @@ body {
     margin: 0;
     padding: 0;
     grid-template-areas:
-      'title rate person'
-      'tags . person';
+      'container person'
+      'tags person';
     grid-template-columns: min-content;
     column-gap: 12px;
     row-gap: 4px;
+    grid-area: header;
   }
 
   &__title {
@@ -130,12 +135,16 @@ body {
     line-height: 28px;
     text-align: left;
     color: #1890ff;
-    grid-area: title;
+    text-align: center;
     padding: 0;
     margin: 0;
     white-space: nowrap;
     transition: 0.3s;
     cursor: pointer;
+    width: fit-content;
+    max-width: 600px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 
     &:hover {
       opacity: 0.9;
@@ -161,13 +170,13 @@ body {
       font-weight: 400;
       line-height: 14.52px;
       text-align: left;
-      cursor: pointer;
-      transition: 0.3s;
+      // cursor: pointer;
+      // transition: 0.3s;
 
-      &:hover {
-        opacity: 0.8;
-        box-shadow: 0px 2px 4px 0px #00000026;
-      }
+      // &:hover {
+      //   opacity: 0.8;
+      //   box-shadow: 0px 2px 4px 0px #00000026;
+      // }
 
       &:first-of-type {
         color: #000000;
@@ -180,9 +189,22 @@ body {
     display: flex;
     gap: 5px;
     align-items: center;
-    grid-area: rate;
     cursor: pointer;
     width: fit-content;
+    grid-area: rate;
+    justify-self: end;
+
+    &_disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+
+      &:hover img {
+        filter: none !important;
+      }
+      &:hover span {
+        color: #000000bf !important;
+      }
+    }
 
     &:hover img {
       filter: drop-shadow(0px 0px 2px red);
@@ -204,6 +226,7 @@ body {
       line-height: 22px;
       text-align: left;
       transition: 0.3s;
+      color: #000000bf;
     }
   }
 
@@ -224,9 +247,10 @@ body {
     align-items: center;
     justify-self: end;
 
-    &:hover span {
+    &:hover span:first-of-type {
       color: #52c41a !important;
     }
+
     &:hover img {
       opacity: 0.8;
     }
@@ -242,6 +266,10 @@ body {
       color: #00000080;
       grid-area: date;
       transition: 0.3s;
+      justify-self: end;
+      max-width: 190px;
+      overflow: hidden;
+      text-overflow: ellipsis;
 
       &:first-of-type {
         color: #000000d9;
@@ -266,12 +294,23 @@ body {
     font-size: 12px;
     font-weight: 400;
     line-height: 22px;
-    text-align: left;
     transition: 0.3s;
     cursor: pointer;
+    width: 682px;
+    max-width: fit-content;
+    height: fit-content;
+    max-height: 40px;
+    overflow: hidden;
+    grid-area: text;
 
     &:hover {
       opacity: 0.9;
     }
+  }
+
+  &__info-container {
+    grid-area: container;
+    display: flex;
+    gap: 13px;
   }
 }

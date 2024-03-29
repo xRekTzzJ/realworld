@@ -1,31 +1,34 @@
+import { format } from 'date-fns';
+
+import activeLike from '../../img/active-like.svg';
 import like from '../../img/like.svg';
 
-import avatar from './avatar.png';
-
-const Article = () => {
+const Article = ({ image, username, title, description, favoritesCount, favorited, tagList, createdAt }) => {
   return (
     <div className="article">
       <div className="article__header">
-        <h2 className="article__title">Some article title</h2>
-        <div className="article__rate-container">
-          <img src={like} alt="Like button." />
-          <span>12</span>
+        <div className="article__info-container">
+          <h2 className="article__title">{title.trim()}</h2>
         </div>
         <div className="article__tag-container">
-          <span>Tag1</span>
-          <span>SomeTag</span>
+          {tagList.map((i, index) => {
+            if (i.trim().length > 0) {
+              return <span key={index}>{i}</span>;
+            }
+          })}
         </div>
         <div className="article__person-info">
-          <span>John Doe</span>
-          <span>March 5, 2020</span>
-          <img src={avatar} alt="Person avatar." />
+          <span>{username.trim()}</span>
+          <span>{format(new Date(createdAt), 'MMMM dd, yyyy')}</span>
+          <img src={image} alt="Person avatar." />
         </div>
       </div>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-        consequat.
-      </p>
+      <p>{description}</p>
+      {/* article__rate-container_disabled */}
+      <div className="article__rate-container">
+        <img src={favorited ? activeLike : like} alt="Like button." />
+        <span>{favoritesCount}</span>
+      </div>
     </div>
   );
 };
