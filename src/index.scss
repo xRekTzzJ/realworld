@@ -100,7 +100,7 @@ body {
   }
 }
 
-.article {
+.article-item {
   width: 906px;
   height: 100px;
   background-color: #ffffff;
@@ -322,5 +322,192 @@ body {
     grid-area: container;
     display: flex;
     gap: 13px;
+  }
+}
+
+.article {
+  width: 908px;
+  padding: 15px 15px 0;
+  margin: 26px auto 64px;
+  box-shadow: 0px 4px 12px 0px #00000026;
+  background-color: #ffffff;
+
+  &__header {
+    display: grid;
+    margin: 0;
+    padding: 0;
+    grid-template-areas:
+      'container person'
+      'tags person';
+    grid-template-columns: min-content;
+    column-gap: 12px;
+    row-gap: 4px;
+    grid-area: header;
+  }
+
+  &__title {
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 28px;
+    text-align: left;
+    color: #1890ff;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    white-space: nowrap;
+    transition: 0.3s;
+    cursor: pointer;
+    width: fit-content;
+    max-width: 600px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__tag-container {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    gap: 8px;
+    grid-area: tags;
+    height: 20px;
+    width: fit-content;
+    max-width: 700px;
+    overflow: hidden;
+
+    & span {
+      margin: 0;
+      padding: 3px 5px;
+      border: 1px solid #0000008c;
+      border-radius: 2px;
+      color: #0000008c;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 14.52px;
+      text-align: left;
+      white-space: nowrap;
+    }
+  }
+
+  &__rate-container {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    cursor: pointer;
+    width: fit-content;
+    grid-area: rate;
+    justify-self: end;
+
+    &_disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+
+      &:hover img {
+        filter: none !important;
+      }
+      &:hover span {
+        color: #000000bf !important;
+      }
+    }
+
+    &:hover img {
+      filter: drop-shadow(0px 0px 2px red);
+    }
+    &:hover span {
+      color: rgb(79, 10, 10);
+    }
+
+    & img {
+      width: 16px;
+      height: 16px;
+      transition: 0.3s;
+    }
+
+    & span {
+      font-family: Inter;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 22px;
+      text-align: left;
+      transition: 0.3s;
+      color: #000000bf;
+    }
+  }
+
+  &__person-info {
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-areas:
+      'name avatar'
+      'date avatar';
+    height: fit-content;
+    width: fit-content;
+    column-gap: 12px;
+    row-gap: 0px;
+    transition: 0.3s;
+    cursor: pointer;
+    grid-area: person;
+    align-items: center;
+    justify-self: end;
+
+    &:hover span:first-of-type {
+      color: #52c41a !important;
+    }
+
+    &:hover img {
+      opacity: 0.8;
+    }
+
+    & span {
+      margin: 0;
+      padding: 0;
+      font-family: Inter;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 22px;
+      text-align: left;
+      color: #00000080;
+      grid-area: date;
+      transition: 0.3s;
+      justify-self: end;
+      max-width: 190px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      &:first-of-type {
+        color: #000000d9;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 28px;
+        text-align: left;
+        grid-area: name;
+      }
+    }
+
+    & img {
+      width: 46px;
+      height: 46px;
+      grid-area: avatar;
+      transition: 0.3s;
+    }
+  }
+
+  & p {
+    color: #00000080;
+
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 22px;
+    text-align: left;
+    margin: 0;
+    padding: 16px 0 15px;
+
+    transition: 0.3s;
+    cursor: pointer;
+    width: 682px;
+    max-width: fit-content;
+    overflow: hidden;
+    grid-area: text;
   }
 }

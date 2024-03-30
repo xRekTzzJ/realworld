@@ -1,35 +1,23 @@
-import { format } from 'date-fns';
-
-import activeLike from '../../img/active-like.svg';
-import like from '../../img/like.svg';
-
-const Article = ({ image, username, title, description, favoritesCount, favorited, tagList, createdAt }) => {
+const Article = () => {
   return (
-    <div className="article">
+    <section className="article">
       <div className="article__header">
-        <div className="article__info-container">
-          <h2 className="article__title">{title.trim()}</h2>
-        </div>
-        <div className="article__tag-container">
-          {tagList.map((i, index) => {
-            if (index < 10 && i !== null && i.length) {
-              return <span key={index}>{i}</span>;
-            }
-          })}
-        </div>
+        <h2 className="article__title">Some article title</h2>
+        <ul className="article__tag-container">
+          <li>Tag1</li>
+        </ul>
         <div className="article__person-info">
-          <span>{username.trim()}</span>
-          <span>{format(new Date(createdAt), 'MMMM dd, yyyy')}</span>
-          <img src={image} alt="Person avatar." />
+          <span>username</span>
+          <span>date</span>
+          <img alt="Person avatar." />
         </div>
       </div>
-      <p>{description}</p>
-      {/* article__rate-container_disabled */}
-      <div className="article__rate-container">
-        <img src={favorited ? activeLike : like} alt="Like button." />
-        <span>{favoritesCount}</span>
-      </div>
-    </div>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis corrupti, expedita sint repudiandae saepe
+        aliquid reprehenderit! Eveniet dolor animi rerum est labore similique perferendis. Itaque voluptate laudantium
+        tempore adipisci accusantium?
+      </p>
+    </section>
   );
 };
 

@@ -5,13 +5,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams, withRouter } from 'react-router-dom';
 
 import { getArticles } from '../../store/actions';
-import Article from '../article/Article';
+import ArticleItem from '../article-item';
 
 const ArticleList = ({ history }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  const articles = useSelector((state) => state.articles.articles);
-  const articlesCount = useSelector((state) => state.articles.articlesCount);
+  const { articles, articlesCount } = useSelector((state) => state.articles);
 
   const { id } = useParams();
 
@@ -50,7 +49,7 @@ const ArticleList = ({ history }) => {
     <>
       <section className="article-list">
         {articles.map((i) => (
-          <Article
+          <ArticleItem
             key={i.slug}
             image={i.author.image}
             username={i.author.username}
