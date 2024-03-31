@@ -375,7 +375,7 @@ body {
   &__rate-container {
     display: flex;
     gap: 5px;
-    align-items: center;
+    align-items: start;
     cursor: pointer;
     width: fit-content;
     grid-area: rate;
@@ -532,5 +532,10 @@ body {
       line-height: 22px;
       text-align: left;
     }
+  }
+
+  &__description-container {
+    display: flex;
+    justify-content: space-between;
   }
 }

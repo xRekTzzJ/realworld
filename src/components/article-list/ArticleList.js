@@ -1,5 +1,5 @@
 import { LoadingOutlined } from '@ant-design/icons';
-import { Pagination, Spin } from 'antd';
+import { Alert, Pagination, Spin } from 'antd';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
@@ -13,6 +13,7 @@ import '../../styles/ant-pagination-item-active.scss';
 const ArticleList = () => {
   const history = useHistory();
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
   const dispatch = useDispatch();
   const { articles, articlesCount } = useSelector((state) => state.articles);
   const location = useLocation();
@@ -21,9 +22,14 @@ const ArticleList = () => {
   const id = params.get('page');
 
   const renderArticles = async () => {
-    setLoading(true);
-    await dispatch(getArticles(id));
-    setLoading(false);
+    try {
+      setLoading(true);
+      await dispatch(getArticles(id));
+      setLoading(false);
+    } catch {
+      setLoading(false);
+      setError(true);
+    }
   };
 
   useEffect(() => {
@@ -43,6 +49,21 @@ const ArticleList = () => {
               spin
             />
           }
+        />
+      </section>
+    );
+  }
+  if (error) {
+    return (
+      <section className={classes['article-list']}>
+        <Alert
+          style={{
+            width: 900,
+          }}
+          message="The service is temporarily unavailable."
+          description="Please try again later."
+          type="error"
+          showIcon
         />
       </section>
     );

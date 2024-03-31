@@ -6,20 +6,30 @@ import Markdown from 'react-markdown';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
+import activeLike from '../../img/active-like.svg';
 import avatar from '../../img/avatar.png';
+import like from '../../img/like.svg';
 import classes from '../../index.module.scss';
 import { getArticle } from '../../store/actions';
 
 const Article = () => {
   const dispatch = useDispatch();
   const { slug } = useParams();
-  const { title, description, tagList, body, createdAt, author } = useSelector((state) => state.article);
+  const { title, description, tagList, body, createdAt, author, favorited, favoritesCount } = useSelector(
+    (state) => state.article
+  );
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
   const [imageError, setImageError] = useState(false);
 
   const renderArticle = async () => {
-    await dispatch(getArticle(slug));
-    setLoading(false);
+    try {
+      await dispatch(getArticle(slug));
+      setLoading(false);
+    } catch {
+      setLoading(false);
+      setError(true);
+    }
   };
 
   useEffect(() => {
@@ -55,6 +65,24 @@ const Article = () => {
     return <img src={author.image} alt="Person avatar." onError={() => setImageError(true)} />;
   };
 
+  if (error) {
+    return (
+      <section className={classes['article']}>
+        <div className={classes['article__header']}>
+          <h2 className={classes['article__title']}>data error</h2>
+          <div className={classes['article__person-info']}>
+            <span></span>
+            <span></span>
+            <span>username</span>
+            <img src={avatar} alt="Person avatar." />
+          </div>
+        </div>
+        <p className={classes['article__description']}>Please try again later.</p>
+        <div className={classes['article__markdown']}></div>
+      </section>
+    );
+  }
+
   return (
     <section className={classes['article']}>
       <div className={classes['article__header']}>
@@ -72,7 +100,14 @@ const Article = () => {
           {renderImage()}
         </div>
       </div>
-      <p className={classes['article__description']}>{description}</p>
+      <div className={classes['article__description-container']}>
+        <p className={classes['article__description']}>{description}</p>
+        <div className={classes['article__rate-container']}>
+          <img src={favorited ? activeLike : like} alt="Like button." />
+          <span>{favoritesCount}</span>
+        </div>
+      </div>
+
       <div className={classes['article__markdown']}>
         <Markdown>{body}</Markdown>
       </div>
