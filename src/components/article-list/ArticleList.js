@@ -2,17 +2,20 @@ import { LoadingOutlined } from '@ant-design/icons';
 import { Pagination, Spin } from 'antd';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, withRouter } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import { getArticles } from '../../store/actions';
 import ArticleItem from '../article-item';
 
-const ArticleList = ({ history }) => {
+const ArticleList = () => {
+  const history = useHistory();
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const { articles, articlesCount } = useSelector((state) => state.articles);
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
 
-  const { id } = useParams();
+  const id = params.get('page');
 
   const renderArticles = async () => {
     setLoading(true);
@@ -21,9 +24,6 @@ const ArticleList = ({ history }) => {
   };
 
   useEffect(() => {
-    if (!id) {
-      history.push(`${1}`);
-    }
     renderArticles();
   }, [id]);
 
@@ -59,6 +59,7 @@ const ArticleList = ({ history }) => {
             favorited={i.favorited}
             tagList={i.tagList}
             createdAt={i.createdAt}
+            slug={i.slug}
           />
         ))}
       </section>
@@ -68,11 +69,11 @@ const ArticleList = ({ history }) => {
         className="pagination"
         showSizeChanger={false}
         onChange={(e) => {
-          history.push(`${e}`);
+          history.push(`?page=${e}`);
         }}
       />
     </>
   );
 };
 
-export default withRouter(ArticleList);
+export default ArticleList;

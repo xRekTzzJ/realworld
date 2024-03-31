@@ -1,14 +1,23 @@
 import { format } from 'date-fns';
+import { useHistory } from 'react-router-dom';
 
 import activeLike from '../../img/active-like.svg';
 import like from '../../img/like.svg';
 
-const articleItem = ({ image, username, title, description, favoritesCount, favorited, tagList, createdAt }) => {
+const articleItem = ({ image, username, title, description, favoritesCount, favorited, tagList, createdAt, slug }) => {
+  const history = useHistory();
+
+  const clickHandler = () => {
+    history.push(slug);
+  };
+
   return (
     <div className="article-item">
       <div className="article-item__header">
         <div className="article-item__info-container">
-          <h2 className="article-item__title">{title.trim()}</h2>
+          <h2 className="article-item__title" onClick={clickHandler}>
+            {title.trim()}
+          </h2>
         </div>
         <div className="article-item__tag-container">
           {tagList.map((i, index) => {

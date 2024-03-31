@@ -12,8 +12,8 @@ const App = () => {
       <Provider store={store}>
         <Header />
         <Switch>
-          <Route path="/articles/:id?" component={ArticleList} />
-          <Route path="/article/:id" component={Article} />
+          <Route path="/articles/" exact component={ArticleList} />
+          <Route path="/articles/:slug" component={Article} />
           <Redirect to="/articles/" />
         </Switch>
       </Provider>

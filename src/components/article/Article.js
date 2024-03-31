@@ -1,6 +1,9 @@
 import Markdown from 'react-markdown';
+import { useParams } from 'react-router-dom';
 
 const Article = () => {
+  const { slug } = useParams();
+  console.log(slug);
   const markdown = `# Проект: movie-app Одностраничный сайт, выполненный в рамках проектной работы на сервисе онлайн-обучения: 'Kata Academy'. 
 ## Технологии, которые использовались: 
 1. HTML. 
