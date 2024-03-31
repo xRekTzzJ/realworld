@@ -18,6 +18,7 @@ const ArticleList = () => {
   const id = params.get('page');
 
   const renderArticles = async () => {
+    setLoading(true);
     await dispatch(getArticles(id));
     setLoading(false);
   };
