@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import avatar from '../../img/avatar.png';
+import classes from '../../index.module.scss';
 import { getArticle } from '../../store/actions';
 
 const Article = () => {
@@ -27,8 +28,12 @@ const Article = () => {
 
   if (loading) {
     return (
-      <section className="article">
+      <section className={classes['article']}>
         <Spin
+          style={{
+            display: 'block',
+            margin: '0 auto',
+          }}
           indicator={
             <LoadingOutlined
               style={{
@@ -51,24 +56,24 @@ const Article = () => {
   };
 
   return (
-    <section className="article">
-      <div className="article__header">
-        <h2 className="article__title">{title}</h2>
-        <ul className="article__tag-container">
+    <section className={classes['article']}>
+      <div className={classes['article__header']}>
+        <h2 className={classes['article__title']}>{title}</h2>
+        <ul className={classes['article__tag-container']}>
           {tagList.map((i, index) => {
             if (index < 10 && i !== null && i.length) {
               return <li key={index}>{i}</li>;
             }
           })}
         </ul>
-        <div className="article__person-info">
+        <div className={classes['article__person-info']}>
           <span>{author.username}</span>
           <span>{format(new Date(createdAt), 'MMMM dd, yyyy')}</span>
           {renderImage()}
         </div>
       </div>
-      <p className="article__description">{description}</p>
-      <div className="article__markdown">
+      <p className={classes['article__description']}>{description}</p>
+      <div className={classes['article__markdown']}>
         <Markdown>{body}</Markdown>
       </div>
     </section>

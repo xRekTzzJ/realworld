@@ -4,8 +4,11 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 
+import classes from '../../index.module.scss';
 import { getArticles } from '../../store/actions';
 import ArticleItem from '../article-item';
+
+import '../../styles/ant-pagination-item-active.scss';
 
 const ArticleList = () => {
   const history = useHistory();
@@ -29,7 +32,7 @@ const ArticleList = () => {
 
   if (loading) {
     return (
-      <section className="article-list">
+      <section className={classes['article-list']}>
         <Spin
           indicator={
             <LoadingOutlined
@@ -47,7 +50,7 @@ const ArticleList = () => {
 
   return (
     <>
-      <section className="article-list">
+      <section className={classes['article-list']}>
         {articles.map((i) => (
           <ArticleItem
             key={i.slug}
@@ -66,7 +69,7 @@ const ArticleList = () => {
       <Pagination
         current={id}
         total={Math.floor(articlesCount / 20) * 10}
-        className="pagination"
+        className={classes['pagination']}
         showSizeChanger={false}
         onChange={(e) => {
           history.push(`?page=${e}`);

@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 import activeLike from '../../img/active-like.svg';
 import avatar from '../../img/avatar.png';
 import like from '../../img/like.svg';
+import classes from '../../index.module.scss';
 
 const articleItem = ({ image, username, title, description, favoritesCount, favorited, tagList, createdAt, slug }) => {
   const history = useHistory();
@@ -22,21 +23,21 @@ const articleItem = ({ image, username, title, description, favoritesCount, favo
   };
 
   return (
-    <div className="article-item">
-      <div className="article-item__header">
-        <div className="article-item__info-container">
-          <h2 className="article-item__title" onClick={clickHandler}>
+    <div className={classes['article-item']}>
+      <div className={classes['article-item__header']}>
+        <div className={classes['article-item__info-container']}>
+          <h2 className={classes['article-item__title']} onClick={clickHandler}>
             {title.trim()}
           </h2>
         </div>
-        <div className="article-item__tag-container">
+        <div className={classes['article-item__tag-container']}>
           {tagList.map((i, index) => {
             if (index < 10 && i !== null && i.length) {
               return <span key={index}>{i}</span>;
             }
           })}
         </div>
-        <div className="article-item__person-info">
+        <div className={classes['article-item__person-info']}>
           <span>{username.trim()}</span>
           <span>{format(new Date(createdAt), 'MMMM dd, yyyy')}</span>
           {renderImage()}
@@ -44,7 +45,7 @@ const articleItem = ({ image, username, title, description, favoritesCount, favo
       </div>
       <p onClick={clickHandler}>{description}</p>
       {/* article-item__rate-container_disabled */}
-      <div className="article-item__rate-container">
+      <div className={classes['article-item__rate-container']}>
         <img src={favorited ? activeLike : like} alt="Like button." />
         <span>{favoritesCount}</span>
       </div>
