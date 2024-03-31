@@ -357,7 +357,6 @@ body {
     margin: 0;
     white-space: nowrap;
     transition: 0.3s;
-    cursor: pointer;
     width: fit-content;
     max-width: 600px;
     overflow: hidden;
@@ -493,7 +492,7 @@ body {
     }
   }
 
-  & p {
+  &__description {
     color: #00000080;
 
     font-size: 12px;
@@ -504,10 +503,33 @@ body {
     padding: 16px 0 15px;
 
     transition: 0.3s;
-    cursor: pointer;
     width: 682px;
     max-width: fit-content;
     overflow: hidden;
     grid-area: text;
+  }
+
+  &__markdown {
+    color: #000000;
+    & h1 {
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 28px;
+      text-align: left;
+    }
+
+    & h2 {
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 28px;
+      text-align: left;
+    }
+
+    & span {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 22px;
+      text-align: left;
+    }
   }
 }

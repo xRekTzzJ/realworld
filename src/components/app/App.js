@@ -13,7 +13,7 @@ const App = () => {
         <Header />
         <Switch>
           <Route path="/articles/:id?" component={ArticleList} />
-          <Route path="/article" component={Article} />
+          <Route path="/article/:id" component={Article} />
           <Redirect to="/articles/" />
         </Switch>
       </Provider>
