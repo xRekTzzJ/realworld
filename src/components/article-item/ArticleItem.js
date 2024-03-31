@@ -1,14 +1,24 @@
 import { format } from 'date-fns';
+import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import activeLike from '../../img/active-like.svg';
+import avatar from '../../img/avatar.png';
 import like from '../../img/like.svg';
 
 const articleItem = ({ image, username, title, description, favoritesCount, favorited, tagList, createdAt, slug }) => {
   const history = useHistory();
+  const [imageError, setImageError] = useState(false);
 
   const clickHandler = () => {
     history.push(slug);
+  };
+
+  const renderImage = () => {
+    if (imageError) {
+      return <img src={avatar} alt="Person avatar." />;
+    }
+    return <img src={image} alt="Person avatar." onError={() => setImageError(true)} />;
   };
 
   return (
@@ -29,10 +39,10 @@ const articleItem = ({ image, username, title, description, favoritesCount, favo
         <div className="article-item__person-info">
           <span>{username.trim()}</span>
           <span>{format(new Date(createdAt), 'MMMM dd, yyyy')}</span>
-          <img src={image} alt="Person avatar." />
+          {renderImage()}
         </div>
       </div>
-      <p>{description}</p>
+      <p onClick={clickHandler}>{description}</p>
       {/* article-item__rate-container_disabled */}
       <div className="article-item__rate-container">
         <img src={favorited ? activeLike : like} alt="Like button." />

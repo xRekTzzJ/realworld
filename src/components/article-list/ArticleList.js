@@ -9,7 +9,7 @@ import ArticleItem from '../article-item';
 
 const ArticleList = () => {
   const history = useHistory();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const { articles, articlesCount } = useSelector((state) => state.articles);
   const location = useLocation();
@@ -18,7 +18,6 @@ const ArticleList = () => {
   const id = params.get('page');
 
   const renderArticles = async () => {
-    setLoading(true);
     await dispatch(getArticles(id));
     setLoading(false);
   };
@@ -27,7 +26,7 @@ const ArticleList = () => {
     renderArticles();
   }, [id]);
 
-  if (!articles.length || loading) {
+  if (loading) {
     return (
       <section className="article-list">
         <Spin
