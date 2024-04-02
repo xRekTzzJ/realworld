@@ -16,6 +16,7 @@ const App = () => {
           <Route path="/articles/" exact component={ArticleList} />
           <Route path="/articles/:slug" component={Article} />
           <Route path="/sign-up" component={SignUp} />
+          <Route path="/sign-in" />
           <Redirect to="/articles/" />
         </Switch>
       </Provider>

@@ -10,7 +10,10 @@ const Header = () => {
       </Link>
       <div className={classes['header__button-container']}>
         <button>Sign in</button>
-        <button>Sign Up</button>
+
+        <button>
+          <Link to="/sign-up">Sign Up</Link>
+        </button>
       </div>
     </header>
   );

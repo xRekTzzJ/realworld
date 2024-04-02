@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
 
 import classes from '../../index.module.scss';
 
@@ -23,15 +24,17 @@ const SignUp = () => {
     <section className={classes['sign-up']}>
       <h2>Create new account</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <label htmlFor="username">Username</label>
+        <div className={classes['sign-up__input-container']}>
+          <label htmlFor="username" className={classes['sign-up__placeholder']}>
+            Username
+          </label>
           <input
             type="text"
             id="username"
             value={watch('username', '')}
             placeholder="Username"
             {...register('username', {
-              required: 'Username field is require',
+              required: 'Username field is require.',
               minLength: {
                 value: 3,
                 message: 'Your username needs to be at least 3 characters.',
@@ -44,6 +47,7 @@ const SignUp = () => {
             style={
               errors.username
                 ? {
+                    outline: 'none',
                     borderColor: '#F5222D',
                   }
                 : null
@@ -69,12 +73,13 @@ const SignUp = () => {
             style={
               errors.email
                 ? {
+                    outline: 'none',
                     borderColor: '#F5222D',
                   }
                 : null
             }
             {...register('email', {
-              required: 'Email field is require',
+              required: 'Email field is require.',
               pattern: {
                 value:
                   /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu,
@@ -112,6 +117,7 @@ const SignUp = () => {
             style={
               errors.password
                 ? {
+                    outline: 'none',
                     borderColor: '#F5222D',
                   }
                 : null
@@ -137,6 +143,7 @@ const SignUp = () => {
             style={
               errors.repeatPassword
                 ? {
+                    outline: 'none',
                     borderColor: '#F5222D',
                   }
                 : null
@@ -180,7 +187,7 @@ const SignUp = () => {
         </button>
       </form>
       <span>
-        Already have an account? <span>Sign In.</span>
+        Already have an account? <Link to="/sign-in">Sign In.</Link>
       </span>
     </section>
   );
