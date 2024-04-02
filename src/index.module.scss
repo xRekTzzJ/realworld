@@ -644,6 +644,10 @@ body {
       width: 16px !important;
       height: 16px !important;
       cursor: pointer;
+
+      &:focus {
+        outline: none !important;
+      }
     }
   }
 
@@ -655,17 +659,6 @@ body {
     &:hover {
       opacity: 0.5 !important;
     }
-  }
-
-  &__input-container {
-    position: relative;
-  }
-
-  &__placeholder {
-    position: absolute;
-    top: 17px;
-    left: 14px;
-    z-index: 2;
   }
 
   span {

@@ -24,10 +24,8 @@ const SignUp = () => {
     <section className={classes['sign-up']}>
       <h2>Create new account</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className={classes['sign-up__input-container']}>
-          <label htmlFor="username" className={classes['sign-up__placeholder']}>
-            Username
-          </label>
+        <div>
+          <label htmlFor="username">Username</label>
           <input
             type="text"
             id="username"
@@ -165,14 +163,7 @@ const SignUp = () => {
           </label>
         </div>
         <div className={classes['sign-up__agree']}>
-          <input
-            id="checkbox"
-            type="checkbox"
-            checked={agree}
-            onChange={() => {
-              setAgree((agree) => !agree);
-            }}
-          />
+          <input id="checkbox" type="checkbox" checked={agree} onChange={() => setAgree((agree) => !agree)} />
           <label
             htmlFor="checkbox"
             style={{
