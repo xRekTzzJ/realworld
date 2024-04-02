@@ -22,5 +22,6 @@ export const registerNewUser = async (userData) => {
     body: JSON.stringify({ user: userData }),
   });
   const result = await data.json();
+  localStorage.setItem('user', JSON.stringify(result.user));
   return result.user;
 };
