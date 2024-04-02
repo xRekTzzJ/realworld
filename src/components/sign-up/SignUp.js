@@ -4,33 +4,21 @@ import { useForm } from 'react-hook-form';
 import classes from '../../index.module.scss';
 
 const SignUp = () => {
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+    getValues,
+  } = useForm({
+    mode: 'onChange',
+  });
   const [agree, setAgree] = useState(false);
   const buttonClasses = agree ? null : classes['sign-up__button_disabled'];
-  const [userName, setUserName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [repeatPassword, setRepeatPassword] = useState('');
-
-  const inputHandler = (e) => {
-    if (e.target.id === 'username') {
-      setUserName(e.target.value);
-    }
-
-    if (e.target.id === 'email') {
-      setEmail(e.target.value);
-    }
-
-    if (e.target.id === 'password') {
-      setPassword(e.target.value);
-    }
-
-    if (e.target.id === 'repeatPassword') {
-      setRepeatPassword(e.target.value);
-    }
+  const onSubmit = (data) => {
+    console.log(data);
   };
 
-  const onSubmit = (data) => console.log(data);
   return (
     <section className={classes['sign-up']}>
       <h2>Create new account</h2>
@@ -40,43 +28,104 @@ const SignUp = () => {
           <input
             type="text"
             id="username"
-            value={userName}
-            onInput={inputHandler}
+            value={watch('username', '')}
             placeholder="Username"
-            {...register('username', { required: true, minLength: 2 })}
+            {...register('username', {
+              required: 'Username field is require',
+              minLength: {
+                value: 3,
+                message: 'Your username needs to be at least 3 characters.',
+              },
+              maxLength: {
+                value: 20,
+                message: 'Your username needs to be shortest 20 characters.',
+              },
+            })}
+            style={
+              errors.username
+                ? {
+                    borderColor: '#F5222D',
+                  }
+                : null
+            }
           />
+          <label
+            htmlFor="username"
+            style={{
+              visibility: errors.username ? 'visible' : 'hidden',
+              color: '#F5222D',
+            }}
+          >
+            {errors.username ? errors.username.message : 'text'}
+          </label>
         </div>
         <div>
           <label htmlFor="email">Email address</label>
           <input
             type="email"
             id="email"
-            value={email}
-            onInput={inputHandler}
             placeholder="Email address"
-            {...register('email', { required: true, minLength: 2 })}
+            value={watch('email', '')}
+            style={
+              errors.email
+                ? {
+                    borderColor: '#F5222D',
+                  }
+                : null
+            }
+            {...register('email', {
+              required: 'Email field is require',
+              pattern: {
+                value:
+                  /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu,
+                message: 'Please enter valid email.',
+              },
+            })}
           />
+          <label
+            htmlFor="email"
+            style={{
+              visibility: errors.email ? 'visible' : 'hidden',
+              color: '#F5222D',
+            }}
+          >
+            {errors.email ? errors.email.message : 'text'}
+          </label>
         </div>
         <div>
           <label htmlFor="password">Password</label>
           <input
             type="password"
             id="password"
-            value={password}
-            onInput={inputHandler}
             placeholder="Password"
-            {...register('password', { required: true, minLength: 6 })}
-            style={{
-              borderColor: '#F5222D',
-            }}
+            {...register('password', {
+              required: 'Password field is require',
+              minLength: {
+                value: 6,
+                message: 'Your password needs to be at least 6 characters.',
+              },
+              maxLength: {
+                value: 40,
+                message: 'Your password needs to be shortest 40 characters.',
+              },
+            })}
+            style={
+              errors.password
+                ? {
+                    borderColor: '#F5222D',
+                  }
+                : null
+            }
           />
+
           <label
-            htmlFor="password"
+            htmlFor="email"
             style={{
+              visibility: errors.password ? 'visible' : 'hidden',
               color: '#F5222D',
             }}
           >
-            Your password needs to be at least 6 characters.
+            {errors.password ? errors.password.message : 'text'}
           </label>
         </div>
         <div>
@@ -84,32 +133,47 @@ const SignUp = () => {
           <input
             type="password"
             id="repeatPassword"
-            value={repeatPassword}
-            onInput={inputHandler}
             placeholder="Password"
-            style={{
-              borderColor: '#F5222D',
-            }}
-            {...register('repeatPassword', { required: true, minLength: 6 })}
+            style={
+              errors.repeatPassword
+                ? {
+                    borderColor: '#F5222D',
+                  }
+                : null
+            }
+            {...register('repeatPassword', {
+              required: 'Please repeat password.',
+              validate: (i) => i === getValues('password'),
+            })}
           />
+
           <label
             htmlFor="password"
             style={{
+              visibility: errors.repeatPassword ? 'visible' : 'hidden',
               color: '#F5222D',
             }}
           >
-            Passwords must match
+            Passwords must match.
           </label>
         </div>
         <div className={classes['sign-up__agree']}>
           <input
             id="checkbox"
             type="checkbox"
-            {...register('agree', { required: true })}
             checked={agree}
-            onChange={() => setAgree((agree) => !agree)}
+            onChange={() => {
+              setAgree((agree) => !agree);
+            }}
           />
-          <label htmlFor="checkbox">I agree to the processing of my personal information</label>
+          <label
+            htmlFor="checkbox"
+            style={{
+              color: '#F5222D',
+            }}
+          >
+            I agree to the processing of my personal information
+          </label>
         </div>
         <button disabled={!agree} type="submit" className={buttonClasses}>
           Create
