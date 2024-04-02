@@ -1,4 +1,8 @@
-import { getArticle as article, getArticles as articles } from '../services/realworld-service';
+import {
+  getArticle as article,
+  getArticles as articles,
+  registerNewUser as register,
+} from '../services/realworld-service';
 
 export const getArticles = (page) => {
   return async (dispatch) => {
@@ -14,6 +18,16 @@ export const getArticle = (slug) => {
     dispatch({
       type: 'GET_ARTICLE',
       payload: await article(slug),
+    });
+  };
+};
+
+export const registerNewUser = (userdata) => {
+  console.log(userdata);
+  return async (dispatch) => {
+    dispatch({
+      type: 'REGISTER_NEW_USER',
+      payload: await register(userdata),
     });
   };
 };

@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import classes from '../../index.module.scss';
+import { registerNewUser } from '../../store/actions';
 
 const SignUp = () => {
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -16,8 +19,8 @@ const SignUp = () => {
   });
   const [agree, setAgree] = useState(false);
   const buttonClasses = agree ? null : classes['sign-up__button_disabled'];
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = ({ username, email, password }) => {
+    dispatch(registerNewUser({ username, email, password }));
   };
 
   return (
@@ -40,6 +43,10 @@ const SignUp = () => {
               maxLength: {
                 value: 20,
                 message: 'Your username needs to be shortest 20 characters.',
+              },
+              pattern: {
+                value: /^[a-z][a-z0-9]*$/,
+                message: 'You can only use lowercase English letters and numbers',
               },
             })}
             style={
