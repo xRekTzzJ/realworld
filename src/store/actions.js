@@ -23,11 +23,17 @@ export const getArticle = (slug) => {
 };
 
 export const registerNewUser = (userdata) => {
-  console.log(userdata);
   return async (dispatch) => {
     dispatch({
       type: 'REGISTER_NEW_USER',
       payload: await register(userdata),
     });
+  };
+};
+
+export const checkAuth = (userData) => {
+  return {
+    type: 'AUTH',
+    payload: userData,
   };
 };

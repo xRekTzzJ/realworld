@@ -4,6 +4,10 @@ const userReducer = (state = {}, action) => {
       return {
         ...action.payload,
       };
+    case 'AUTH':
+      return {
+        ...action.payload,
+      };
     default:
       return state;
   }

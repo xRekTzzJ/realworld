@@ -1,5 +1,6 @@
 import { format } from 'date-fns';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import activeLike from '../../img/active-like.svg';
@@ -10,10 +11,15 @@ import classes from '../../index.module.scss';
 const articleItem = ({ image, username, title, description, favoritesCount, favorited, tagList, createdAt, slug }) => {
   const history = useHistory();
   const [imageError, setImageError] = useState(false);
+  const auth = useSelector((state) => state.user.token);
 
   const clickHandler = () => {
     history.push(slug);
   };
+
+  const rateClasses = auth
+    ? classes['article-item__rate-container']
+    : `${classes['article-item__rate-container']} ${classes['article-item__rate-container_disabled']}`;
 
   const renderImage = () => {
     if (imageError) {
@@ -44,8 +50,7 @@ const articleItem = ({ image, username, title, description, favoritesCount, favo
         </div>
       </div>
       <p onClick={clickHandler}>{description}</p>
-      {/* article-item__rate-container_disabled */}
-      <div className={classes['article-item__rate-container']}>
+      <div className={rateClasses}>
         <img src={favorited ? activeLike : like} alt="Like button." />
         <span>{favoritesCount}</span>
       </div>
