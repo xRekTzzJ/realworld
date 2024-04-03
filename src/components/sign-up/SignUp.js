@@ -1,12 +1,16 @@
+import { LoadingOutlined } from '@ant-design/icons';
+import { Spin } from 'antd';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import classes from '../../index.module.scss';
 import { registerNewUser } from '../../store/actions';
 
 const SignUp = () => {
+  const history = useHistory();
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const {
     register,
@@ -19,9 +23,31 @@ const SignUp = () => {
   });
   const [agree, setAgree] = useState(false);
   const buttonClasses = agree ? null : classes['sign-up__button_disabled'];
-  const onSubmit = ({ username, email, password }) => {
-    dispatch(registerNewUser({ username, email, password }));
+  const onSubmit = async ({ username, email, password }) => {
+    setLoading(true);
+    await dispatch(registerNewUser({ username, email, password }));
+    setLoading(false);
+    history.push('/');
   };
+
+  if (loading) {
+    return (
+      <section className={classes['sign-up']}>
+        <Spin
+          indicator={
+            <LoadingOutlined
+              style={{
+                width: '100%',
+                color: '#52c41a',
+                fontSize: 48,
+              }}
+              spin
+            />
+          }
+        />
+      </section>
+    );
+  }
 
   return (
     <section className={classes['sign-up']}>
