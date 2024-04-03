@@ -19,8 +19,13 @@ const App = () => {
   const [loading, setLoading] = useState(true);
 
   const initialState = async () => {
-    await dispatch(checkAuth(JSON.parse(localStorage.getItem('user'))));
-    setLoading(false);
+    try {
+      await dispatch(checkAuth(JSON.parse(localStorage.getItem('user'))));
+      setLoading(false);
+    } catch {
+      localStorage.removeItem('user');
+      setLoading(false);
+    }
   };
 
   const auth = useSelector((state) => state.user.token);
