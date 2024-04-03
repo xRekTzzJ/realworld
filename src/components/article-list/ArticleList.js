@@ -44,7 +44,7 @@ const ArticleList = () => {
             <LoadingOutlined
               style={{
                 color: '#52c41a',
-                fontSize: 48,
+                fontSize: 64,
               }}
               spin
             />

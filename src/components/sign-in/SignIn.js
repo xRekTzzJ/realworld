@@ -139,7 +139,7 @@ const SignIn = () => {
         <button type="submit">Login</button>
       </form>
       <span>
-        Don’t have an account? <Link to="/form">Sign Up.</Link>
+        Don’t have an account? <Link to="/sign-up">Sign Up.</Link>
       </span>
     </section>
   );

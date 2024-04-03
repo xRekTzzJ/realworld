@@ -1,4 +1,6 @@
-import { useEffect } from 'react';
+import { LoadingOutlined } from '@ant-design/icons';
+import { Spin } from 'antd';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
@@ -14,16 +16,41 @@ import SignUp from '../sign-up';
 
 const App = () => {
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    dispatch(checkAuth(JSON.parse(localStorage.getItem('user'))));
-  }, []);
+  const initialState = async () => {
+    await dispatch(checkAuth(JSON.parse(localStorage.getItem('user'))));
+    setLoading(false);
+  };
 
   const auth = useSelector((state) => state.user.token);
+
+  useEffect(() => {
+    initialState();
+  }, []);
 
   const PrivateRoute = () => {
     return <Redirect to="/articles/" />;
   };
+
+  if (loading) {
+    return (
+      <Router>
+        <Spin
+          indicator={
+            <LoadingOutlined
+              style={{
+                width: '100%',
+                color: '#52c41a',
+                fontSize: 64,
+              }}
+              spin
+            />
+          }
+        />
+      </Router>
+    );
+  }
 
   return (
     <Router>
