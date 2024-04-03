@@ -133,6 +133,7 @@ const SignUp = () => {
           <input
             type="password"
             id="password"
+            value={watch('password', '')}
             placeholder="Password"
             {...register('password', {
               required: 'Password field is require',
@@ -171,6 +172,7 @@ const SignUp = () => {
             type="password"
             id="repeatPassword"
             placeholder="Password"
+            value={watch('repeatPassword', '')}
             style={
               errors.repeatPassword
                 ? {

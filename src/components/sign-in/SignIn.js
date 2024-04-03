@@ -94,6 +94,7 @@ const SignIn = () => {
           <input
             type="password"
             id="password"
+            value={watch('password', '')}
             placeholder="Password"
             {...register('password', {
               required: 'Password field is require',
@@ -125,7 +126,6 @@ const SignIn = () => {
             {errors.password ? errors.password.message : 'text'}
           </label>
         </div>
-
         <button type="submit">Login</button>
       </form>
       <span>
