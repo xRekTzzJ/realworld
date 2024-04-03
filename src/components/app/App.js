@@ -6,6 +6,7 @@ import { checkAuth } from '../../store/actions';
 import Article from '../article';
 import ArticleList from '../article-list/';
 import Header from '../header';
+import SignIn from '../sign-in';
 import SignUp from '../sign-up';
 
 const App = () => {
@@ -22,7 +23,7 @@ const App = () => {
         <Route path="/articles/" exact component={ArticleList} />
         <Route path="/articles/:slug" component={Article} />
         <Route path="/sign-up" component={SignUp} />
-        <Route path="/sign-in" />
+        <Route path="/sign-in" component={SignIn} />
         <Redirect to="/articles/" />
       </Switch>
     </Router>

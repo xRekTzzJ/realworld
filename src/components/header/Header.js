@@ -7,6 +7,7 @@ import classes from '../../index.module.scss';
 const Header = () => {
   const auth = useSelector((state) => state.user.token);
   const username = useSelector((state) => state.user.username);
+  const userImage = useSelector((state) => state.user.image);
 
   const SignContainer = () => {
     return (
@@ -19,7 +20,7 @@ const Header = () => {
     );
   };
 
-  const ProfileConteiner = () => {
+  const ProfileContainer = () => {
     return (
       <div className={classes['header__profile-container']}>
         <button>
@@ -28,7 +29,7 @@ const Header = () => {
 
         <div className={classes['header__profile']}>
           <span>{username}</span>
-          <img src={avatar} alt="Avatar." />
+          <img src={userImage ? userImage : avatar} alt="Avatar." />
         </div>
 
         <button>
@@ -43,7 +44,7 @@ const Header = () => {
       <Link to="/">
         <h1>Realworld Blog</h1>
       </Link>
-      {auth ? <ProfileConteiner /> : <SignContainer />}
+      {auth ? <ProfileContainer /> : <SignContainer />}
     </header>
   );
 };

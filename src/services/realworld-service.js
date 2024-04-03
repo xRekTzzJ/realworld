@@ -7,13 +7,13 @@ export const getArticles = async (page = 1) => {
 };
 
 export const getArticle = async (slug) => {
-  const data = await fetch(`${url}/articles/${slug}`);
+  const data = await fetch(`${url}articles/${slug}`);
   const response = await data.json();
   return response;
 };
 
 export const registerNewUser = async (userData) => {
-  const data = await fetch(`${url}/users`, {
+  const data = await fetch(`${url}users`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -23,5 +23,17 @@ export const registerNewUser = async (userData) => {
   });
   const result = await data.json();
   localStorage.setItem('user', JSON.stringify(result.user));
+  return result.user;
+};
+
+export const getUserInfo = async (key) => {
+  const data = await fetch(`${url}user`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Token ${key}`,
+    },
+  });
+
+  const result = await data.json();
   return result.user;
 };

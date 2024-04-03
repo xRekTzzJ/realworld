@@ -1,6 +1,7 @@
 import {
   getArticle as article,
   getArticles as articles,
+  getUserInfo,
   registerNewUser as register,
 } from '../services/realworld-service';
 
@@ -32,6 +33,15 @@ export const registerNewUser = (userdata) => {
 };
 
 export const checkAuth = (userData) => {
+  if (userData) {
+    return async (dispatch) => {
+      const { token } = userData;
+      dispatch({
+        type: 'AUTH',
+        payload: await getUserInfo(token),
+      });
+    };
+  }
   return {
     type: 'AUTH',
     payload: userData,
