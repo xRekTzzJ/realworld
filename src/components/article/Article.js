@@ -21,10 +21,15 @@ const Article = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [imageError, setImageError] = useState(false);
+  const token = useSelector((state) => state.user.token);
+
+  const rateClasses = token
+    ? classes['article-item__rate-container']
+    : `${classes['article-item__rate-container']} ${classes['article-item__rate-container_disabled']}`;
 
   const renderArticle = async () => {
     try {
-      await dispatch(getArticle(slug));
+      await dispatch(getArticle(slug, token));
       setLoading(false);
     } catch {
       setLoading(false);
@@ -102,7 +107,7 @@ const Article = () => {
       </div>
       <div className={classes['article__description-container']}>
         <p className={classes['article__description']}>{description}</p>
-        <div className={classes['article__rate-container']}>
+        <div className={rateClasses}>
           <img src={favorited ? activeLike : like} alt="Like button." />
           <span>{favoritesCount}</span>
         </div>

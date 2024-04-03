@@ -1,7 +1,16 @@
 const url = 'https://blog.kata.academy/api/';
 
-export const getArticles = async (page = 1) => {
-  const data = await fetch(`${url}/articles?offset=${page > 1 ? page * 20 : 0}`);
+export const getArticles = async (page = 1, key) => {
+  const data = await fetch(
+    `${url}/articles?offset=${page > 1 ? page * 20 : 0}`,
+    key
+      ? {
+          headers: {
+            Authorization: `Token ${key}`,
+          },
+        }
+      : {}
+  );
   if (!data.ok) {
     throw data;
   }
@@ -10,8 +19,17 @@ export const getArticles = async (page = 1) => {
   return { ...response, page };
 };
 
-export const getArticle = async (slug) => {
-  const data = await fetch(`${url}articles/${slug}`);
+export const getArticle = async (slug, key) => {
+  const data = await fetch(
+    `${url}articles/${slug}`,
+    key
+      ? {
+          headers: {
+            Authorization: `Token ${key}`,
+          },
+        }
+      : {}
+  );
 
   if (!data.ok) {
     throw data;

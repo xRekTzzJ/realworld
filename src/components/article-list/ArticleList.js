@@ -18,13 +18,14 @@ const ArticleList = () => {
   const { articles, articlesCount } = useSelector((state) => state.articles);
   const location = useLocation();
   const params = new URLSearchParams(location.search);
+  const token = useSelector((state) => state.user.token);
 
   const id = params.get('page');
 
   const renderArticles = async () => {
     try {
       setLoading(true);
-      await dispatch(getArticles(id));
+      await dispatch(getArticles(id, token));
       setLoading(false);
     } catch {
       setLoading(false);

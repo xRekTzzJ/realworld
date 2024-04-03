@@ -7,20 +7,20 @@ import {
   updateUser as update,
 } from '../services/realworld-service';
 
-export const getArticles = (page) => {
+export const getArticles = (page, key = undefined) => {
   return async (dispatch) => {
     dispatch({
       type: 'GET_ARTICLES',
-      payload: await articles(page),
+      payload: await articles(page, key),
     });
   };
 };
 
-export const getArticle = (slug) => {
+export const getArticle = (slug, key = undefined) => {
   return async (dispatch) => {
     dispatch({
       type: 'GET_ARTICLE',
-      payload: await article(slug),
+      payload: await article(slug, key),
     });
   };
 };
