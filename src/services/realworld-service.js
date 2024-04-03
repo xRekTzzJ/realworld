@@ -37,3 +37,16 @@ export const getUserInfo = async (key) => {
   const result = await data.json();
   return result.user;
 };
+
+export const userLogin = async (userData) => {
+  const data = await fetch(`${url}users/login`, {
+    method: 'POST',
+    headers: {
+      accept: 'application/json',
+      'Content-Type': 'application/json;charset=utf-8',
+    },
+    body: JSON.stringify({ user: userData }),
+  });
+  const response = await data.json();
+  return response.user;
+};

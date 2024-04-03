@@ -2,6 +2,7 @@ import {
   getArticle as article,
   getArticles as articles,
   getUserInfo,
+  userLogin as login,
   registerNewUser as register,
 } from '../services/realworld-service';
 
@@ -53,5 +54,14 @@ export const logOut = () => {
   return {
     type: 'LOG_OUT',
     payload: {},
+  };
+};
+
+export const loginUser = (userdata) => {
+  return async (dispatch) => {
+    dispatch({
+      type: 'LOGIN',
+      payload: await login(userdata),
+    });
   };
 };

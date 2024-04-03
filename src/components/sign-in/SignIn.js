@@ -1,12 +1,14 @@
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import classes from '../../index.module.scss';
-import { registerNewUser } from '../../store/actions';
+import { loginUser } from '../../store/actions';
 
 const SignIn = () => {
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -15,8 +17,11 @@ const SignIn = () => {
   } = useForm({
     mode: 'onChange',
   });
+
+  const login = async () => {};
+
   const onSubmit = ({ email, password }) => {
-    dispatch(registerNewUser({ email, password }));
+    dispatch(loginUser({ email, password }));
   };
 
   return (
@@ -94,7 +99,7 @@ const SignIn = () => {
           </label>
         </div>
 
-        <button type="submit">Create</button>
+        <button type="submit">Login</button>
       </form>
       <span>
         Don’t have an account? <Link to="/sign-up">Sign Up.</Link>
