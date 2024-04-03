@@ -34,7 +34,7 @@ const SignIn = () => {
 
   if (loading) {
     return (
-      <section className={classes['sign-up']}>
+      <section className={classes['form']}>
         <Spin
           indicator={
             <LoadingOutlined
@@ -52,7 +52,7 @@ const SignIn = () => {
   }
 
   return (
-    <section className={classes['sign-up']}>
+    <section className={classes['form']}>
       <h2>Sign In</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
@@ -129,7 +129,7 @@ const SignIn = () => {
         <button type="submit">Login</button>
       </form>
       <span>
-        Don’t have an account? <Link to="/sign-up">Sign Up.</Link>
+        Don’t have an account? <Link to="/form">Sign Up.</Link>
       </span>
     </section>
   );

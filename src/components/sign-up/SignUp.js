@@ -22,7 +22,7 @@ const SignUp = () => {
     mode: 'onChange',
   });
   const [agree, setAgree] = useState(false);
-  const buttonClasses = agree ? null : classes['sign-up__button_disabled'];
+  const buttonClasses = agree ? null : classes['form__button_disabled'];
   const onSubmit = async ({ username, email, password }) => {
     setLoading(true);
     await dispatch(registerNewUser({ username, email, password }));
@@ -32,7 +32,7 @@ const SignUp = () => {
 
   if (loading) {
     return (
-      <section className={classes['sign-up']}>
+      <section className={classes['form']}>
         <Spin
           indicator={
             <LoadingOutlined
@@ -50,7 +50,7 @@ const SignUp = () => {
   }
 
   return (
-    <section className={classes['sign-up']}>
+    <section className={classes['form']}>
       <h2>Create new account</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
@@ -195,7 +195,7 @@ const SignUp = () => {
             Passwords must match.
           </label>
         </div>
-        <div className={classes['sign-up__agree']}>
+        <div className={classes['form__agree']}>
           <input id="checkbox" type="checkbox" checked={agree} onChange={() => setAgree((agree) => !agree)} />
           <label
             htmlFor="checkbox"

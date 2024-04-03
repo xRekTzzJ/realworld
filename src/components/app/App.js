@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 
 import { checkAuth } from '../../store/actions';
@@ -16,14 +16,20 @@ const App = () => {
     dispatch(checkAuth(JSON.parse(localStorage.getItem('user'))));
   }, []);
 
+  const auth = useSelector((state) => state.user.token);
+
+  const PrivateRoute = () => {
+    return <Redirect to="/articles/" />;
+  };
+
   return (
     <Router>
       <Header />
       <Switch>
         <Route path="/articles/" exact component={ArticleList} />
         <Route path="/articles/:slug" component={Article} />
-        <Route path="/sign-up" component={SignUp} />
-        <Route path="/sign-in" component={SignIn} />
+        <Route path="/sign-up" component={auth ? PrivateRoute : SignUp} />
+        <Route path="/sign-in" component={auth ? PrivateRoute : SignIn} />
         <Redirect to="/articles/" />
       </Switch>
     </Router>
