@@ -8,6 +8,10 @@ const userReducer = (state = {}, action) => {
       return {
         ...action.payload,
       };
+    case 'LOG_OUT':
+      return {
+        ...action.payload,
+      };
     default:
       return state;
   }

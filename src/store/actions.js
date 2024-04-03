@@ -47,3 +47,11 @@ export const checkAuth = (userData) => {
     payload: userData,
   };
 };
+
+export const logOut = () => {
+  localStorage.removeItem('user');
+  return {
+    type: 'LOG_OUT',
+    payload: {},
+  };
+};

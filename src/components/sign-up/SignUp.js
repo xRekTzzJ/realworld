@@ -130,7 +130,7 @@ const SignUp = () => {
           />
 
           <label
-            htmlFor="email"
+            htmlFor="password"
             style={{
               visibility: errors.password ? 'visible' : 'hidden',
               color: '#F5222D',
