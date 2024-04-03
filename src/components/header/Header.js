@@ -1,7 +1,8 @@
 import { Modal } from 'antd';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import avatar from '../../img/avatar.png';
 import classes from '../../index.module.scss';
@@ -13,6 +14,7 @@ const Header = () => {
   const username = useSelector((state) => state.user.username);
   const userImage = useSelector((state) => state.user.image);
 
+  const history = useHistory();
   const [logOutModal, setLogOutModal] = useState(false);
 
   const SignContainer = () => {
@@ -32,6 +34,8 @@ const Header = () => {
         onOk={() => {
           setLogOutModal(false);
           dispatch(logOut());
+          history.push('/');
+          toast.success('You have successfully logged out!');
         }}
         onCancel={() => {
           setLogOutModal(false);
