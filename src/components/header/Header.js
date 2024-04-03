@@ -26,6 +26,15 @@ const Header = () => {
     );
   };
 
+  const [imageError, setImageError] = useState(false);
+
+  const renderImage = () => {
+    if (imageError) {
+      return <img src={avatar} alt="Person avatar." />;
+    }
+    return <img src={userImage} alt="Person avatar." onError={() => setImageError(true)} />;
+  };
+
   const LogOutModal = () => {
     return (
       <Modal
@@ -54,7 +63,7 @@ const Header = () => {
         <Link to="/profile">
           <div className={classes['header__profile']}>
             <span>{username}</span>
-            <img src={userImage ? userImage : avatar} alt="Avatar." />
+            {renderImage()}
           </div>
         </Link>
 
