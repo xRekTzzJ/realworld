@@ -580,6 +580,14 @@ body {
     li {
       padding: 4px 0;
     }
+
+    a {
+      transition: 0.3s;
+    }
+
+    a:hover {
+      opacity: 0.9;
+    }
   }
 
   &__description-container {
