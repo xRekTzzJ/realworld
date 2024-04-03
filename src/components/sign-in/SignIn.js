@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import classes from '../../index.module.scss';
 import { loginUser } from '../../store/actions';
@@ -26,6 +27,7 @@ const SignIn = () => {
     await dispatch(loginUser({ email, password }));
     setLoading(false);
     history.push('/');
+    toast.success('You have successfully logged in to your profile!');
   };
 
   const onSubmit = (data) => {

@@ -1,7 +1,9 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Route, BrowserRouter as Router, Switch } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 
+import 'react-toastify/dist/ReactToastify.css';
 import { checkAuth } from '../../store/actions';
 import Article from '../article';
 import ArticleList from '../article-list/';
@@ -26,6 +28,7 @@ const App = () => {
   return (
     <Router>
       <Header />
+      <ToastContainer pauseOnHover={false} position="top-right" autoClose={3000} pauseOnFocusLoss={false} />
       <Switch>
         <Route path="/articles/" exact component={ArticleList} />
         <Route path="/articles/:slug" component={Article} />

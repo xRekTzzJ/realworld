@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import classes from '../../index.module.scss';
 import { updateUser } from '../../store/actions';
@@ -42,6 +43,7 @@ const Profile = () => {
     await dispatch(updateUser(validateData(data), token));
     setLoading(false);
     history.push('/');
+    toast.success('You have successfully updated your profile!');
   };
 
   if (loading) {

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import classes from '../../index.module.scss';
 import { registerNewUser } from '../../store/actions';
@@ -28,6 +29,7 @@ const SignUp = () => {
     await dispatch(registerNewUser({ username, email, password }));
     setLoading(false);
     history.push('/');
+    toast.success('You have successfully registered!');
   };
 
   if (loading) {
