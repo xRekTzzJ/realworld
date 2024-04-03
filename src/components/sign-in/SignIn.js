@@ -18,16 +18,24 @@ const SignIn = () => {
     handleSubmit,
     formState: { errors },
     watch,
+    reset,
   } = useForm({
     mode: 'onChange',
   });
 
   const login = async ({ email, password }) => {
     setLoading(true);
-    await dispatch(loginUser({ email, password }));
-    setLoading(false);
-    history.push('/');
-    toast.success('You have successfully logged in to your profile!');
+
+    try {
+      await dispatch(loginUser({ email, password }));
+      setLoading(false);
+      history.push('/');
+      toast.success('You have successfully logged in to your profile!');
+    } catch (error) {
+      toast.error('The email or password is incorrect.');
+      setLoading(false);
+      reset();
+    }
   };
 
   const onSubmit = (data) => {

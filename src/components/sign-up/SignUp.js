@@ -19,6 +19,7 @@ const SignUp = () => {
     formState: { errors },
     watch,
     getValues,
+    reset,
   } = useForm({
     mode: 'onChange',
   });
@@ -26,10 +27,21 @@ const SignUp = () => {
   const buttonClasses = agree ? null : classes['form__button_disabled'];
   const onSubmit = async ({ username, email, password }) => {
     setLoading(true);
-    await dispatch(registerNewUser({ username, email, password }));
-    setLoading(false);
-    history.push('/');
-    toast.success('You have successfully registered!');
+
+    try {
+      await dispatch(registerNewUser({ username, email, password }));
+      setLoading(false);
+      history.push('/');
+      toast.success('You have successfully registered!');
+    } catch (error) {
+      if (error.status === 422) {
+        toast.error('Is already taken.');
+      } else {
+        toast.error('Something went wrong.');
+      }
+      setLoading(false);
+      reset();
+    }
   };
 
   if (loading) {
