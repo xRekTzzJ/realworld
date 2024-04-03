@@ -62,6 +62,9 @@ export const updateUser = async (userData, key) => {
     },
     body: JSON.stringify({ user: userData }),
   });
+  if (!data.ok) {
+    throw data;
+  }
   const result = await data.json();
   localStorage.setItem('user', JSON.stringify(result.user));
   return result.user;

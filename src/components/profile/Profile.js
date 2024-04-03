@@ -19,6 +19,7 @@ const Profile = () => {
     formState: { errors },
     watch,
     formState,
+    reset,
   } = useForm({
     mode: 'onChange',
     defaultValues: {
@@ -31,6 +32,7 @@ const Profile = () => {
   const token = useSelector((state) => state.user.token);
 
   const onSubmit = async (data) => {
+    setLoading(true);
     function validateData(obj) {
       for (const value in obj) {
         if (obj[value] === '') {
@@ -39,11 +41,21 @@ const Profile = () => {
       }
       return obj;
     }
-    setLoading(true);
-    await dispatch(updateUser(validateData(data), token));
-    setLoading(false);
-    history.push('/');
-    toast.success('You have successfully updated your profile!');
+
+    try {
+      await dispatch(updateUser(validateData(data), token));
+      setLoading(false);
+      history.push('/');
+      toast.success('You have successfully updated your profile!');
+    } catch (error) {
+      if (error.status === 422) {
+        toast.error('Is already taken.');
+      } else {
+        toast.error('Something went wrong.');
+      }
+      setLoading(false);
+      reset();
+    }
   };
 
   if (loading) {
