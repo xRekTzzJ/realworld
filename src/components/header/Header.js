@@ -58,7 +58,7 @@ const Header = () => {
   const ProfileContainer = () => {
     return (
       <div className={classes['header__profile-container']}>
-        <Link to="/sign-up">Create article</Link>
+        <Link to="/new-article">Create article</Link>
 
         <Link to="/profile">
           <div className={classes['header__profile']}>

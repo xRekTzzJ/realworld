@@ -202,7 +202,7 @@ const SignUp = () => {
           />
 
           <label
-            htmlFor="password"
+            htmlFor="repeatPassword"
             style={{
               visibility: errors.repeatPassword ? 'visible' : 'hidden',
               color: '#F5222D',
