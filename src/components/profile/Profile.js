@@ -33,9 +33,11 @@ const Profile = () => {
 
   const onSubmit = async (data) => {
     setLoading(true);
+
+    //Валидация на пустые значения и на неизмененные значения
     function validateData(obj) {
       for (const value in obj) {
-        if (obj[value] === '') {
+        if (obj[value] === '' || !formState.dirtyFields[value]) {
           delete obj[value];
         }
       }

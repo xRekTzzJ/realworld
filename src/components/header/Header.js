@@ -29,7 +29,7 @@ const Header = () => {
   const [imageError, setImageError] = useState(false);
 
   const renderImage = () => {
-    if (imageError) {
+    if (imageError || !userImage) {
       return <img src={avatar} alt="Person avatar." />;
     }
     return <img src={userImage} alt="Person avatar." onError={() => setImageError(true)} />;
