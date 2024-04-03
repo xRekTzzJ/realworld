@@ -47,6 +47,7 @@ export const userLogin = async (userData) => {
     },
     body: JSON.stringify({ user: userData }),
   });
-  const response = await data.json();
-  return response.user;
+  const result = await data.json();
+  localStorage.setItem('user', JSON.stringify(result.user));
+  return result.user;
 };

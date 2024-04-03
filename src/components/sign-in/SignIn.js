@@ -1,12 +1,15 @@
+import { LoadingOutlined } from '@ant-design/icons';
+import { Spin } from 'antd';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import classes from '../../index.module.scss';
 import { loginUser } from '../../store/actions';
 
 const SignIn = () => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const {
@@ -18,11 +21,35 @@ const SignIn = () => {
     mode: 'onChange',
   });
 
-  const login = async () => {};
-
-  const onSubmit = ({ email, password }) => {
-    dispatch(loginUser({ email, password }));
+  const login = async ({ email, password }) => {
+    setLoading(true);
+    await dispatch(loginUser({ email, password }));
+    setLoading(false);
+    history.push('/');
   };
+
+  const onSubmit = (data) => {
+    login(data);
+  };
+
+  if (loading) {
+    return (
+      <section className={classes['sign-up']}>
+        <Spin
+          indicator={
+            <LoadingOutlined
+              style={{
+                width: '100%',
+                color: '#52c41a',
+                fontSize: 48,
+              }}
+              spin
+            />
+          }
+        />
+      </section>
+    );
+  }
 
   return (
     <section className={classes['sign-up']}>
