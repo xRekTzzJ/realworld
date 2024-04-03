@@ -51,3 +51,18 @@ export const userLogin = async (userData) => {
   localStorage.setItem('user', JSON.stringify(result.user));
   return result.user;
 };
+
+export const updateUser = async (userData, key) => {
+  const data = await fetch(`${url}user`, {
+    method: 'PUT',
+    headers: {
+      accept: 'application/json',
+      'Content-Type': 'application/json;charset=utf-8',
+      Authorization: `Token ${key}`,
+    },
+    body: JSON.stringify({ user: userData }),
+  });
+  const result = await data.json();
+  localStorage.setItem('user', JSON.stringify(result.user));
+  return result.user;
+};

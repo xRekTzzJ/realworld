@@ -4,6 +4,7 @@ import {
   getUserInfo,
   userLogin as login,
   registerNewUser as register,
+  updateUser as update,
 } from '../services/realworld-service';
 
 export const getArticles = (page) => {
@@ -62,6 +63,15 @@ export const loginUser = (userdata) => {
     dispatch({
       type: 'LOGIN',
       payload: await login(userdata),
+    });
+  };
+};
+
+export const updateUser = (userdata, key) => {
+  return async (dispatch) => {
+    dispatch({
+      type: 'UPDATE_USER',
+      payload: await update(userdata, key),
     });
   };
 };

@@ -1,7 +1,8 @@
 import { useForm } from 'react-hook-form';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import classes from '../../index.module.scss';
+import { updateUser } from '../../store/actions';
 
 const Profile = () => {
   const user = useSelector((state) => state.user);
@@ -19,24 +20,19 @@ const Profile = () => {
       image: user.image,
     },
   });
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state.user.token);
 
   const onSubmit = (data) => {
     function validateData(obj) {
       for (const value in obj) {
-        if (
-          obj[value] === '' ||
-          obj['username'] === user.username ||
-          obj['email'] === user.email ||
-          obj['image'] === user.image
-        ) {
+        if (obj[value] === '') {
           delete obj[value];
         }
       }
       return obj;
     }
-    if (!validateData(data)) {
-      return;
-    }
+    dispatch(updateUser(validateData(data), token));
   };
 
   // if (loading) {
@@ -58,7 +54,7 @@ const Profile = () => {
   //   );
   // }
 
-  const buttonClasses = formState.isDirty ? null : classes['form__button_disabled'];
+  const buttonClasses = Object.keys(formState.dirtyFields).length !== 0 ? null : classes['form__button_disabled'];
 
   return (
     <section className={classes['form']}>
@@ -207,7 +203,7 @@ const Profile = () => {
             {errors.image ? errors.image.message : 'text'}
           </label>
         </div>
-        <button disabled={!formState.isDirty} type="submit" className={buttonClasses}>
+        <button disabled={Object.keys(formState.dirtyFields).length === 0} type="submit" className={buttonClasses}>
           Save
         </button>
       </form>
