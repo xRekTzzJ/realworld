@@ -1,10 +1,16 @@
+import { LoadingOutlined } from '@ant-design/icons';
+import { Spin } from 'antd';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import classes from '../../index.module.scss';
 import { updateUser } from '../../store/actions';
 
 const Profile = () => {
+  const history = useHistory();
+  const [loading, setLoading] = useState(false);
   const user = useSelector((state) => state.user);
   const {
     register,
@@ -23,7 +29,7 @@ const Profile = () => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.user.token);
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     function validateData(obj) {
       for (const value in obj) {
         if (obj[value] === '') {
@@ -32,27 +38,30 @@ const Profile = () => {
       }
       return obj;
     }
-    dispatch(updateUser(validateData(data), token));
+    setLoading(true);
+    await dispatch(updateUser(validateData(data), token));
+    setLoading(false);
+    history.push('/');
   };
 
-  // if (loading) {
-  //   return (
-  //     <section className={classes['form']}>
-  //       <Spin
-  //         indicator={
-  //           <LoadingOutlined
-  //             style={{
-  //               width: '100%',
-  //               color: '#52c41a',
-  //               fontSize: 48,
-  //             }}
-  //             spin
-  //           />
-  //         }
-  //       />
-  //     </section>
-  //   );
-  // }
+  if (loading) {
+    return (
+      <section className={classes['form']}>
+        <Spin
+          indicator={
+            <LoadingOutlined
+              style={{
+                width: '100%',
+                color: '#52c41a',
+                fontSize: 48,
+              }}
+              spin
+            />
+          }
+        />
+      </section>
+    );
+  }
 
   const buttonClasses = Object.keys(formState.dirtyFields).length !== 0 ? null : classes['form__button_disabled'];
 

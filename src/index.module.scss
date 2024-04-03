@@ -63,6 +63,12 @@ body {
     gap: 27px;
     align-items: center;
 
+    img {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+    }
+
     a {
       display: flex;
       align-items: center;
@@ -311,6 +317,7 @@ body {
     & img {
       width: 46px;
       height: 46px;
+      border-radius: 50%;
       grid-area: avatar;
       transition: 0.3s;
     }
@@ -409,7 +416,9 @@ body {
   &__rate-container {
     display: flex;
     gap: 5px;
-    align-items: start;
+    height: fit-content;
+    align-items: center;
+    align-self: center;
     cursor: pointer;
     width: fit-content;
     grid-area: rate;
@@ -507,6 +516,7 @@ body {
       height: 46px;
       grid-area: avatar;
       transition: 0.3s;
+      border-radius: 50%;
     }
   }
 
