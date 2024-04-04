@@ -3,11 +3,14 @@ import { Spin } from 'antd';
 import { useEffect, useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import classes from '../../index.module.scss';
 import { createArticle } from '../../services/realworld-service';
 
 const ArticleForm = ({ slug = undefined }) => {
+  const history = useHistory();
   const [loading, setLoading] = useState(true);
 
   const token = useSelector((state) => state.user.token);
@@ -56,11 +59,21 @@ const ArticleForm = ({ slug = undefined }) => {
     }
   };
 
-  const onSubmit = (data) => {
-    createArticle(
-      { ...data, tagList: data.tagList.map((i) => i.value.length && i.value.trim()).filter((i) => i) },
-      token
-    );
+  const onSubmit = async (data) => {
+    setLoading(true);
+    try {
+      await createArticle(
+        { ...data, tagList: data.tagList.map((i) => i.value.length && i.value.trim()).filter((i) => i) },
+        token
+      );
+      setLoading(false);
+      history.push('/');
+      toast.success('You have successfully created an article!');
+    } catch {
+      toast.error('Something went wrong.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const { fields, remove, append, update } = useFieldArray({
