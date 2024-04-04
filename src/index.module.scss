@@ -827,6 +827,8 @@ body {
 
   input {
     margin: 0;
+    border: 1px solid;
+    border-radius: 4px;
     padding: 8px 12px;
     font-family: Roboto;
     font-size: 16px;
@@ -836,6 +838,8 @@ body {
   }
 
   textarea {
+    border: 1px solid;
+    border-radius: 4px;
     margin: 0;
     padding: 8px 12px;
     height: 150px;
@@ -844,5 +848,37 @@ body {
     font-weight: 400;
     line-height: 24px;
     text-align: left;
+  }
+
+  &__tag-list {
+    div {
+      flex-direction: row;
+      gap: 17px;
+    }
+    button {
+      background: none !important;
+      height: 40px;
+      border: 1px solid;
+      margin: 0;
+      padding: 8px 40px;
+      width: fit-content;
+      font-family: Roboto;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 24px;
+      text-align: center;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+    span {
+      margin: 0 0 8px;
+      padding: 0;
+    }
+
+    input {
+      width: 272px;
+    }
   }
 }

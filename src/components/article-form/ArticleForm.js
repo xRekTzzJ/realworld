@@ -1,21 +1,128 @@
-import { useForm } from 'react-hook-form';
+import { LoadingOutlined } from '@ant-design/icons';
+import { Spin } from 'antd';
+import { useEffect, useState } from 'react';
+import { useFieldArray, useForm } from 'react-hook-form';
 
 import classes from '../../index.module.scss';
 
-const ArticleForm = () => {
+const ArticleForm = ({ slug = undefined }) => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    console.log(slug);
+    if (!slug) {
+      setLoading(false);
+    }
+  }, []);
+
   const {
     register,
     handleSubmit,
-    formState: { errors, dirtyFields },
+    formState: { errors },
     watch,
+    getValues,
+    control,
   } = useForm({
+    defaultValues: {
+      tagList: [{ value: '' }],
+    },
     mode: 'onChange',
   });
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onRemoveTag = (index) => {
+    if (index > 0) {
+      remove(index);
+    } else {
+      update(index, { value: '' });
+    }
   };
-  const buttonClasses = Object.keys(dirtyFields).length !== 0 ? null : classes['form__button_disabled'];
+
+  const onAddTag = (index, array) => {
+    if (array.length === 6) {
+      return;
+    }
+    const inputValue = getValues('tagList')[index].value;
+    if (inputValue.length > 0) {
+      append(
+        { value: inputValue, isAdded: true },
+        {
+          focusIndex: 0,
+        }
+      );
+      update(index, { value: '' });
+    }
+  };
+
+  const onSubmit = (data) => {
+    console.log({ ...data, tagList: data.tagList.map((i) => i.value.length && i.value.trim()).filter((i) => i) });
+  };
+
+  const { fields, remove, append, update } = useFieldArray({
+    control,
+    name: 'tagList',
+  });
+
+  const TagList = () => {
+    return (
+      <div className={classes['article-form__tag-list']}>
+        <span>Tags (no more than 5)</span>
+        {fields.map((field, index, array) => {
+          return index === 0 && array.length === 6 ? null : (
+            <div key={field.id}>
+              <input {...register(`tagList.${index}.value`)} placeholder="Tag" />
+              {index !== 0 && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    onRemoveTag(index);
+                  }}
+                  style={{
+                    color: '#F5222D',
+                    borderColor: '#F5222D',
+                  }}
+                >
+                  Delete
+                </button>
+              )}
+              {!field.isAdded && array.length !== 6 ? (
+                <button
+                  type="button"
+                  onClick={() => {
+                    onAddTag(index, array);
+                  }}
+                  style={{
+                    color: '#1890FF',
+                    borderColor: '#1890FF',
+                  }}
+                >
+                  Add tag
+                </button>
+              ) : null}
+            </div>
+          );
+        })}
+      </div>
+    );
+  };
+
+  if (loading) {
+    return (
+      <section className={classes['article-form']}>
+        <Spin
+          indicator={
+            <LoadingOutlined
+              style={{
+                width: '100%',
+                color: '#52c41a',
+                fontSize: 48,
+              }}
+              spin
+            />
+          }
+        />
+      </section>
+    );
+  }
 
   return (
     <section className={classes['article-form']}>
@@ -128,9 +235,8 @@ const ArticleForm = () => {
             {errors.text ? errors.text.message : 'text'}
           </label>
         </div>
-        <button type="submit" disabled={Object.keys(dirtyFields).length === 0} className={buttonClasses}>
-          Send
-        </button>
+        <TagList />
+        <button type="submit">Send</button>
       </form>
     </section>
   );
