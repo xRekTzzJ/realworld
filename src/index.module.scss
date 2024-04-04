@@ -798,4 +798,51 @@ body {
       opacity: 0.5 !important;
     }
   }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0;
+    margin: 0;
+  }
+
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 0;
+    margin: 0;
+  }
+
+  label {
+    font-family: Roboto;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 22px;
+    text-align: left;
+    padding: 0;
+    margin: 0;
+  }
+
+  input {
+    margin: 0;
+    padding: 8px 12px;
+    font-family: Roboto;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+  }
+
+  textarea {
+    margin: 0;
+    padding: 8px 12px;
+    height: 150px;
+    font-family: Roboto;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+  }
 }
