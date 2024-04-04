@@ -2,14 +2,17 @@ import { LoadingOutlined } from '@ant-design/icons';
 import { Spin } from 'antd';
 import { useEffect, useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
 
 import classes from '../../index.module.scss';
+import { createArticle } from '../../services/realworld-service';
 
 const ArticleForm = ({ slug = undefined }) => {
   const [loading, setLoading] = useState(true);
 
+  const token = useSelector((state) => state.user.token);
+
   useEffect(() => {
-    console.log(slug);
     if (!slug) {
       setLoading(false);
     }
@@ -54,7 +57,10 @@ const ArticleForm = ({ slug = undefined }) => {
   };
 
   const onSubmit = (data) => {
-    console.log({ ...data, tagList: data.tagList.map((i) => i.value.length && i.value.trim()).filter((i) => i) });
+    createArticle(
+      { ...data, tagList: data.tagList.map((i) => i.value.length && i.value.trim()).filter((i) => i) },
+      token
+    );
   };
 
   const { fields, remove, append, update } = useFieldArray({
@@ -166,7 +172,7 @@ const ArticleForm = ({ slug = undefined }) => {
           </label>
         </div>
         <div>
-          <label htmlFor="title">Short description</label>
+          <label htmlFor="description">Short description</label>
           <input
             type="text"
             id="description"
@@ -203,21 +209,21 @@ const ArticleForm = ({ slug = undefined }) => {
           </label>
         </div>
         <div>
-          <label htmlFor="title">Text</label>
+          <label htmlFor="body">Text</label>
           <textarea
             type="text"
-            id="text"
+            id="body"
             placeholder="Text"
-            value={watch('text', '')}
+            value={watch('body', '')}
             style={
-              errors.text
+              errors.body
                 ? {
                     outline: 'none',
                     borderColor: '#F5222D',
                   }
                 : null
             }
-            {...register('text', {
+            {...register('body', {
               required: 'Text field is require.',
               minLength: {
                 value: 10,
@@ -226,13 +232,13 @@ const ArticleForm = ({ slug = undefined }) => {
             })}
           />
           <label
-            htmlFor="title"
+            htmlFor="body"
             style={{
-              visibility: errors.text ? 'visible' : 'hidden',
+              visibility: errors.body ? 'visible' : 'hidden',
               color: '#F5222D',
             }}
           >
-            {errors.text ? errors.text.message : 'text'}
+            {errors.body ? errors.body.message : 'text'}
           </label>
         </div>
         <TagList />

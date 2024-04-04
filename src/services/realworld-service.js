@@ -2,7 +2,7 @@ const url = 'https://blog.kata.academy/api/';
 
 export const getArticles = async (page = 1, key) => {
   const data = await fetch(
-    `${url}/articles?offset=${page > 1 ? page * 20 : 0}`,
+    `${url}/articles?offset=${page == 1 ? 0 : page == 2 ? 20 : page * 20}`,
     key
       ? {
           headers: {
@@ -108,4 +108,21 @@ export const updateUser = async (userData, key) => {
   const result = await data.json();
   localStorage.setItem('user', JSON.stringify(result.user));
   return result.user;
+};
+
+export const createArticle = async (articleData, key) => {
+  const data = await fetch(`${url}articles`, {
+    method: 'POST',
+    headers: {
+      accept: 'application/json',
+      'Content-Type': 'application/json;charset=utf-8',
+      Authorization: `Token ${key}`,
+    },
+    body: JSON.stringify({ article: articleData }),
+  });
+  if (!data.ok) {
+    throw data;
+  }
+  const response = await data.json();
+  return response;
 };
