@@ -1,15 +1,17 @@
-import { LoadingOutlined } from '@ant-design/icons';
-import { Spin } from 'antd';
+import { LoadingOutlined, QuestionCircleOutlined } from '@ant-design/icons';
+import { Popconfirm, Spin } from 'antd';
 import { format } from 'date-fns';
 import { useEffect, useState } from 'react';
 import Markdown from 'react-markdown';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import activeLike from '../../img/active-like.svg';
 import avatar from '../../img/avatar.png';
 import like from '../../img/like.svg';
 import classes from '../../index.module.scss';
+import { deleteArticle } from '../../services/realworld-service';
 import { getArticle } from '../../store/actions';
 
 const Article = () => {
@@ -90,17 +92,42 @@ const Article = () => {
     );
   }
 
+  const confirm = async () => {
+    try {
+      await deleteArticle(slug, token);
+      history.push('/');
+      toast.success('You have successfully delete an article!');
+    } catch {
+      toast.error('Something went wrong!');
+    }
+  };
+
   return (
     <section className={classes['article']}>
       {userName === author.username && (
         <div className={classes['article__author-buttons']}>
-          <button
-            style={{
-              color: '#F5222D',
-            }}
+          <Popconfirm
+            title="Delete the task"
+            description="Are you sure to delete this article?"
+            okText="Yes"
+            onConfirm={confirm}
+            cancelText="No"
+            icon={
+              <QuestionCircleOutlined
+                style={{
+                  color: 'red',
+                }}
+              />
+            }
           >
-            Delete
-          </button>
+            <button
+              style={{
+                color: '#F5222D',
+              }}
+            >
+              Delete
+            </button>
+          </Popconfirm>
           <button
             style={{
               color: '#52C41A',

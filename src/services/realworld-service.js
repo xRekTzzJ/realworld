@@ -143,3 +143,17 @@ export const updateArticle = async (articleData, slug, key) => {
   const response = await data.json();
   return response;
 };
+
+export const deleteArticle = async (slug, key) => {
+  const data = await fetch(`${url}articles/${slug}`, {
+    method: 'DELETE',
+    headers: {
+      accept: 'application/json',
+      'Content-Type': 'application/json;charset=utf-8',
+      Authorization: `Token ${key}`,
+    },
+  });
+  if (!data.ok) {
+    throw data;
+  }
+};
