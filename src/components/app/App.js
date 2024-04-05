@@ -37,6 +37,9 @@ const App = () => {
   const PrivateRoute = () => {
     return <Redirect to="/articles/" />;
   };
+  const RouteToSignIn = () => {
+    return <Redirect to="/sign-in" />;
+  };
 
   if (loading) {
     return (
@@ -67,7 +70,7 @@ const App = () => {
         <Route path="/sign-up" component={auth ? PrivateRoute : SignUp} />
         <Route path="/sign-in" component={auth ? PrivateRoute : SignIn} />
         <Route path="/profile" component={!auth ? PrivateRoute : Profile} />
-        <Route path="/new-article" component={!auth ? PrivateRoute : ArticleForm} />
+        <Route path="/new-article" component={!auth ? RouteToSignIn : ArticleForm} />
         <Route path="/articles/:slug/edit" component={!auth ? PrivateRoute : ArticleForm} />
         <Redirect to="/articles/" />
       </Switch>
