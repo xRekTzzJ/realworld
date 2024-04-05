@@ -4,9 +4,10 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 
-import classes from '../../index.module.scss';
 import { getArticles } from '../../store/actions';
 import ArticleItem from '../article-item';
+
+import classes from './article-list.module.scss';
 
 import '../../styles/ant-pagination-item-active.scss';
 

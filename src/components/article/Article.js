@@ -8,10 +8,11 @@ import { useHistory, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import avatar from '../../img/avatar.png';
-import classes from '../../index.module.scss';
 import { deleteArticle } from '../../services/realworld-service';
 import { favoriteArticle, getArticle, unfavoriteArticle } from '../../store/actions';
 import Rate from '../rate';
+
+import classes from './article.module.scss';
 
 const Article = () => {
   const userName = useSelector((state) => state.user.username);

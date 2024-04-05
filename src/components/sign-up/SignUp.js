@@ -6,8 +6,9 @@ import { useDispatch } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-import classes from '../../index.module.scss';
 import { registerNewUser } from '../../store/actions';
+
+import classes from './form.module.scss';
 
 const SignUp = () => {
   const history = useHistory();

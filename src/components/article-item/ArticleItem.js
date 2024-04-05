@@ -5,9 +5,10 @@ import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import avatar from '../../img/avatar.png';
-import classes from '../../index.module.scss';
 import { favoriteAnArticle, unfavoriteAnArticle } from '../../services/realworld-service';
 import Rate from '../rate';
+
+import classes from './article-item.module.scss';
 
 const articleItem = ({ image, username, title, description, favoritesCount, favorited, tagList, createdAt, slug }) => {
   const history = useHistory();

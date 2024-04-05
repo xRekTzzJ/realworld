@@ -3,12 +3,13 @@ import { Spin } from 'antd';
 
 import activeLike from '../../img/active-like.svg';
 import like from '../../img/like.svg';
-import classes from '../../index.module.scss';
+
+import classes from './rate.module.scss';
 
 const Rate = ({ auth, onLikeLoading, likeHandler, isFavorited, favortiedCount }) => {
   const rateClasses = auth
-    ? classes['article-item__rate-container']
-    : `${classes['article-item__rate-container']} ${classes['article-item__rate-container_disabled']}`;
+    ? classes['rate-container']
+    : `${classes['rate-container']} ${classes['rate-container_disabled']}`;
 
   return onLikeLoading ? (
     <div className={rateClasses}>

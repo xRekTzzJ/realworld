@@ -1,0 +1,218 @@
+.article {
+  width: 908px;
+  padding: 15px;
+  margin: 56px auto 64px;
+  box-shadow: 0px 4px 12px 0px #00000026;
+  background-color: #ffffff;
+  position: relative;
+
+  &__header {
+    display: grid;
+    margin: 0;
+    padding: 0;
+    grid-template-areas:
+      'container person'
+      'tags person';
+    grid-template-columns: min-content;
+    column-gap: 12px;
+    row-gap: 4px;
+    grid-area: header;
+  }
+
+  &__title {
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 28px;
+    text-align: left;
+    color: #1890ff;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    white-space: nowrap;
+    transition: 0.3s;
+    width: fit-content;
+    max-width: 600px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__tag-container {
+    display: flex;
+    margin: 0;
+    padding: 10px 0;
+    gap: 8px;
+    grid-area: tags;
+    height: 20px;
+    width: fit-content;
+    max-width: 700px;
+    overflow: hidden;
+    list-style: none;
+
+    & li {
+      margin: 0;
+      padding: 3px 5px;
+      border: 1px solid #0000008c;
+      border-radius: 2px;
+      color: #0000008c;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 14.52px;
+      text-align: left;
+      white-space: nowrap;
+    }
+  }
+
+  &__person-info {
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-areas:
+      'name avatar'
+      'date avatar';
+    height: fit-content;
+    width: fit-content;
+    column-gap: 12px;
+    row-gap: 0px;
+    transition: 0.3s;
+    grid-area: person;
+    align-items: center;
+    justify-self: end;
+
+    & span {
+      margin: 0;
+      padding: 0;
+      font-family: Inter;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 22px;
+      text-align: left;
+      color: #00000080;
+      grid-area: date;
+      transition: 0.3s;
+      justify-self: end;
+      max-width: 190px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      &:first-of-type {
+        color: #000000d9;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 28px;
+        text-align: left;
+        grid-area: name;
+      }
+    }
+
+    & img {
+      width: 46px;
+      height: 46px;
+      grid-area: avatar;
+      transition: 0.3s;
+      border-radius: 50%;
+    }
+  }
+
+  &__description {
+    color: #00000080;
+
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 22px;
+    text-align: left;
+    margin: 0;
+    padding: 16px 0 15px;
+
+    transition: 0.3s;
+    width: 682px;
+    max-width: fit-content;
+    overflow: hidden;
+    grid-area: text;
+  }
+
+  &__markdown {
+    word-wrap: break-word;
+    color: #000000;
+    & h1 {
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 28px;
+      text-align: left;
+    }
+
+    & h2,
+    h3 {
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 28px;
+      text-align: left;
+    }
+
+    & span {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 22px;
+      text-align: left;
+    }
+    & p {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 22px;
+      text-align: left;
+    }
+
+    & code {
+      color: #4e4d4d;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 22px;
+      text-align: left;
+    }
+
+    li {
+      padding: 4px 0;
+    }
+
+    a {
+      transition: 0.3s;
+    }
+
+    a:hover {
+      opacity: 0.9;
+    }
+  }
+
+  &__description-container {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__author-buttons {
+    display: flex;
+    gap: 12px;
+    position: absolute;
+    top: -45px;
+    right: 0;
+
+    button {
+      font-family: Inter;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 22px;
+      text-align: left;
+
+      background: none;
+      border: 1px solid;
+      border-radius: 5px;
+      padding: 6px 15px;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+
+    button:hover {
+      transform: scale(1.1);
+      opacity: 0.8;
+    }
+  }
+}

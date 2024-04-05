@@ -6,9 +6,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-import classes from '../../index.module.scss';
 import { createArticle, updateArticle } from '../../services/realworld-service';
 import { getArticle } from '../../store/actions';
+
+import classes from './article-form.module.scss';
 
 const ArticleForm = () => {
   const dispatch = useDispatch();

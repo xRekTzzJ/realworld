@@ -5,8 +5,9 @@ import { Link, useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import avatar from '../../img/avatar.png';
-import classes from '../../index.module.scss';
 import { logOut } from '../../store/actions';
+
+import classes from './header.module.scss';
 
 const Header = () => {
   const dispatch = useDispatch();
