@@ -157,3 +157,31 @@ export const deleteArticle = async (slug, key) => {
     throw data;
   }
 };
+
+export const favoriteAnArticle = async (slug, key) => {
+  const data = await fetch(`${url}articles/${slug}/favorite`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Token ${key}`,
+    },
+  });
+  if (!data.ok) {
+    throw data;
+  }
+  const response = await data.json();
+  return response;
+};
+
+export const UnfavoriteAnArticle = async (slug, key) => {
+  const data = await fetch(`${url}articles/${slug}/favorite`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Token ${key}`,
+    },
+  });
+  if (!data.ok) {
+    throw data;
+  }
+  const response = await data.json();
+  return response.article;
+};
