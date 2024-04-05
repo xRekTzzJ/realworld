@@ -25,7 +25,7 @@ const Rate = ({ auth, onLikeLoading, likeHandler, isFavorited, favortiedCount })
       />
     </div>
   ) : (
-    <div className={rateClasses} onClick={likeHandler}>
+    <div className={rateClasses} onClick={auth && likeHandler}>
       <img src={isFavorited ? activeLike : like} alt="Like button." />
       <span>{favortiedCount}</span>
     </div>

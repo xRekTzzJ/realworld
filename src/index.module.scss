@@ -276,18 +276,9 @@ body {
     column-gap: 12px;
     row-gap: 0px;
     transition: 0.3s;
-    cursor: pointer;
     grid-area: person;
     align-items: center;
     justify-self: end;
-
-    &:hover span:first-of-type {
-      color: #52c41a !important;
-    }
-
-    &:hover img {
-      opacity: 0.8;
-    }
 
     & span {
       margin: 0;
@@ -474,18 +465,9 @@ body {
     column-gap: 12px;
     row-gap: 0px;
     transition: 0.3s;
-    cursor: pointer;
     grid-area: person;
     align-items: center;
     justify-self: end;
-
-    &:hover span:first-of-type {
-      color: #52c41a !important;
-    }
-
-    &:hover img {
-      opacity: 0.8;
-    }
 
     & span {
       margin: 0;
