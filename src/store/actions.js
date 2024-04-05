@@ -1,9 +1,11 @@
 import {
   getArticle as article,
   getArticles as articles,
+  favoriteAnArticle as favorite,
   getUserInfo,
   userLogin as login,
   registerNewUser as register,
+  unfavoriteAnArticle as unfavorite,
   updateUser as update,
 } from '../services/realworld-service';
 
@@ -72,6 +74,24 @@ export const updateUser = (userdata, key) => {
     dispatch({
       type: 'UPDATE_USER',
       payload: await update(userdata, key),
+    });
+  };
+};
+
+export const favoriteArticle = (slug, key) => {
+  return async (dispatch) => {
+    dispatch({
+      type: 'UPDATE_ARTICLE_FAVORITES_INFO',
+      payload: await favorite(slug, key),
+    });
+  };
+};
+
+export const unfavoriteArticle = (slug, key) => {
+  return async (dispatch) => {
+    dispatch({
+      type: 'UPDATE_ARTICLE_FAVORITES_INFO',
+      payload: await unfavorite(slug, key),
     });
   };
 };

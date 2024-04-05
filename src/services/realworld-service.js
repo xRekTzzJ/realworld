@@ -169,10 +169,10 @@ export const favoriteAnArticle = async (slug, key) => {
     throw data;
   }
   const response = await data.json();
-  return response;
+  return response.article;
 };
 
-export const UnfavoriteAnArticle = async (slug, key) => {
+export const unfavoriteAnArticle = async (slug, key) => {
   const data = await fetch(`${url}articles/${slug}/favorite`, {
     method: 'DELETE',
     headers: {

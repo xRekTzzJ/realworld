@@ -7,12 +7,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-import activeLike from '../../img/active-like.svg';
 import avatar from '../../img/avatar.png';
-import like from '../../img/like.svg';
 import classes from '../../index.module.scss';
 import { deleteArticle } from '../../services/realworld-service';
-import { getArticle } from '../../store/actions';
+import { favoriteArticle, getArticle, unfavoriteArticle } from '../../store/actions';
+import Rate from '../rate';
 
 const Article = () => {
   const userName = useSelector((state) => state.user.username);
@@ -26,11 +25,7 @@ const Article = () => {
   const [error, setError] = useState(false);
   const [imageError, setImageError] = useState(false);
   const token = useSelector((state) => state.user.token);
-
-  const rateClasses = token
-    ? classes['article-item__rate-container']
-    : `${classes['article-item__rate-container']} ${classes['article-item__rate-container_disabled']}`;
-
+  const [onLikeLoading, setOnLikeLoading] = useState(false);
   const renderArticle = async () => {
     try {
       await dispatch(getArticle(slug, token));
@@ -72,6 +67,21 @@ const Article = () => {
       return <img src={avatar} alt="Person avatar." />;
     }
     return <img src={author.image} alt="Person avatar." onError={() => setImageError(true)} />;
+  };
+
+  const likeHandler = async () => {
+    setOnLikeLoading(true);
+    try {
+      if (favorited) {
+        await dispatch(unfavoriteArticle(slug, token));
+      } else {
+        await dispatch(favoriteArticle(slug, token));
+      }
+    } catch {
+      toast.error('Something went wrong!');
+    } finally {
+      setOnLikeLoading(false);
+    }
   };
 
   if (error) {
@@ -160,10 +170,13 @@ const Article = () => {
       </div>
       <div className={classes['article__description-container']}>
         <p className={classes['article__description']}>{description}</p>
-        <div className={rateClasses}>
-          <img src={favorited ? activeLike : like} alt="Like button." />
-          <span>{favoritesCount}</span>
-        </div>
+        <Rate
+          auth={token}
+          onLikeLoading={onLikeLoading}
+          likeHandler={likeHandler}
+          isFavorited={favorited}
+          favortiedCount={favoritesCount}
+        />
       </div>
 
       <div className={classes['article__markdown']}>
