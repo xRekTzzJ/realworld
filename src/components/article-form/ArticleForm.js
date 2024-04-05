@@ -2,24 +2,42 @@ import { LoadingOutlined } from '@ant-design/icons';
 import { Spin } from 'antd';
 import { useEffect, useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
-import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import classes from '../../index.module.scss';
-import { createArticle } from '../../services/realworld-service';
+import { createArticle, updateArticle } from '../../services/realworld-service';
+import { getArticle } from '../../store/actions';
 
-const ArticleForm = ({ slug = undefined }) => {
+const ArticleForm = () => {
+  const dispatch = useDispatch();
   const history = useHistory();
+  const location = useLocation();
   const [loading, setLoading] = useState(true);
-
+  const slug = location.state ? location.state.slug : undefined;
   const token = useSelector((state) => state.user.token);
+  const { title, description, body, tagList } = useSelector((state) => state.article);
 
-  useEffect(() => {
-    if (!slug) {
+  const renderArticle = async () => {
+    try {
+      await dispatch(getArticle(slug, token));
+      setLoading(false);
+    } catch {
       setLoading(false);
     }
-  }, []);
+  };
+
+  useEffect(() => {
+    setLoading(true);
+    if (!slug) {
+      reset();
+      setLoading(false);
+    } else {
+      renderArticle();
+    }
+    reset();
+  }, [slug]);
 
   const {
     register,
@@ -27,10 +45,22 @@ const ArticleForm = ({ slug = undefined }) => {
     formState: { errors },
     watch,
     getValues,
+    reset,
     control,
   } = useForm({
-    defaultValues: {
-      tagList: [{ value: '' }],
+    values: {
+      title: slug && title ? title : '',
+      description: slug && description ? description : '',
+      body: slug && body ? body : '',
+      tagList:
+        slug && tagList
+          ? [
+              { value: '' },
+              ...tagList.map((i) => {
+                return { value: i, isAdded: true };
+              }),
+            ]
+          : [{ value: '' }],
     },
     mode: 'onChange',
   });
@@ -61,18 +91,35 @@ const ArticleForm = ({ slug = undefined }) => {
 
   const onSubmit = async (data) => {
     setLoading(true);
-    try {
-      await createArticle(
-        { ...data, tagList: data.tagList.map((i) => i.value.length && i.value.trim()).filter((i) => i) },
-        token
-      );
-      setLoading(false);
-      history.push('/');
-      toast.success('You have successfully created an article!');
-    } catch {
-      toast.error('Something went wrong.');
-    } finally {
-      setLoading(false);
+    if (!slug) {
+      try {
+        await createArticle(
+          { ...data, tagList: data.tagList.map((i) => i.value.length && i.value.trim()).filter((i) => i) },
+          token
+        );
+        setLoading(false);
+        history.push('/');
+        toast.success('You have successfully created an article!');
+      } catch {
+        toast.error('Something went wrong.');
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      try {
+        await updateArticle(
+          { ...data, tagList: data.tagList.map((i) => i.value.length && i.value.trim()).filter((i) => i) },
+          slug,
+          token
+        );
+        setLoading(false);
+        history.push(`/articles/${slug}`);
+        toast.success('You have successfully update an article!');
+      } catch {
+        toast.error('Something went wrong.');
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
@@ -145,7 +192,7 @@ const ArticleForm = ({ slug = undefined }) => {
 
   return (
     <section className={classes['article-form']}>
-      <h2>Create new article</h2>
+      {slug ? <h2>Edit article</h2> : <h2>Create new article</h2>}
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
           <label htmlFor="title">Title</label>

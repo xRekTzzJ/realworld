@@ -14,7 +14,7 @@ const articleItem = ({ image, username, title, description, favoritesCount, favo
   const auth = useSelector((state) => state.user.token);
 
   const clickHandler = () => {
-    history.push(slug);
+    history.push(`${slug}/`);
   };
 
   const rateClasses = auth

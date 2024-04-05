@@ -64,11 +64,12 @@ const App = () => {
       <ToastContainer pauseOnHover={false} position="top-right" autoClose={3000} pauseOnFocusLoss={false} />
       <Switch>
         <Route path="/articles/" exact component={ArticleList} />
-        <Route path="/articles/:slug" component={Article} />
+        <Route path="/articles/:slug/" exact component={Article} />
         <Route path="/sign-up" component={auth ? PrivateRoute : SignUp} />
         <Route path="/sign-in" component={auth ? PrivateRoute : SignIn} />
         <Route path="/profile" component={!auth ? PrivateRoute : Profile} />
         <Route path="/new-article" component={!auth ? PrivateRoute : ArticleForm} />
+        <Route path="/articles/:slug/edit" component={!auth ? PrivateRoute : ArticleForm} />
         <Redirect to="/articles/" />
       </Switch>
     </Router>

@@ -59,7 +59,6 @@ const Header = () => {
     return (
       <div className={classes['header__profile-container']}>
         <Link to="/new-article">Create article</Link>
-
         <Link to="/profile">
           <div className={classes['header__profile']}>
             <span>{username}</span>

@@ -126,3 +126,20 @@ export const createArticle = async (articleData, key) => {
   const response = await data.json();
   return response;
 };
+
+export const updateArticle = async (articleData, slug, key) => {
+  const data = await fetch(`${url}articles/${slug}`, {
+    method: 'PUT',
+    headers: {
+      accept: 'application/json',
+      'Content-Type': 'application/json;charset=utf-8',
+      Authorization: `Token ${key}`,
+    },
+    body: JSON.stringify({ article: articleData }),
+  });
+  if (!data.ok) {
+    throw data;
+  }
+  const response = await data.json();
+  return response;
+};

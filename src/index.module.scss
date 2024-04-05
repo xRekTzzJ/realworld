@@ -353,9 +353,10 @@ body {
 .article {
   width: 908px;
   padding: 15px;
-  margin: 26px auto 64px;
+  margin: 56px auto 64px;
   box-shadow: 0px 4px 12px 0px #00000026;
   background-color: #ffffff;
+  position: relative;
 
   &__header {
     display: grid;
@@ -593,6 +594,34 @@ body {
   &__description-container {
     display: flex;
     justify-content: space-between;
+  }
+
+  &__author-buttons {
+    display: flex;
+    gap: 12px;
+    position: absolute;
+    top: -45px;
+    right: 0;
+
+    button {
+      font-family: Inter;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 22px;
+      text-align: left;
+
+      background: none;
+      border: 1px solid;
+      border-radius: 5px;
+      padding: 6px 15px;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+
+    button:hover {
+      transform: scale(1.1);
+      opacity: 0.8;
+    }
   }
 }
 

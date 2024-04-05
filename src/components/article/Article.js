@@ -4,7 +4,7 @@ import { format } from 'date-fns';
 import { useEffect, useState } from 'react';
 import Markdown from 'react-markdown';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 import activeLike from '../../img/active-like.svg';
 import avatar from '../../img/avatar.png';
@@ -13,11 +13,13 @@ import classes from '../../index.module.scss';
 import { getArticle } from '../../store/actions';
 
 const Article = () => {
+  const userName = useSelector((state) => state.user.username);
   const dispatch = useDispatch();
   const { slug } = useParams();
   const { title, description, tagList, body, createdAt, author, favorited, favoritesCount } = useSelector(
     (state) => state.article
   );
+  const history = useHistory();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [imageError, setImageError] = useState(false);
@@ -90,6 +92,30 @@ const Article = () => {
 
   return (
     <section className={classes['article']}>
+      {userName === author.username && (
+        <div className={classes['article__author-buttons']}>
+          <button
+            style={{
+              color: '#F5222D',
+            }}
+          >
+            Delete
+          </button>
+          <button
+            style={{
+              color: '#52C41A',
+            }}
+            onClick={() => {
+              history.push({
+                pathname: 'edit',
+                state: { slug },
+              });
+            }}
+          >
+            Edit
+          </button>
+        </div>
+      )}
       <div className={classes['article__header']}>
         <h2 className={classes['article__title']}>{title}</h2>
         <ul className={classes['article__tag-container']}>
