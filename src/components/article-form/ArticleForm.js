@@ -116,7 +116,7 @@ const ArticleForm = () => {
           token
         );
         setLoading(false);
-        history.push(`/articles/${slug}`);
+        history.push(`/articles/${slug}/`);
         toast.success('You have successfully update an article!');
       } catch {
         toast.error('Something went wrong.');
