@@ -30,6 +30,9 @@ const ArticleForm = () => {
 
   useEffect(() => {
     setLoading(true);
+    if (location.pathname !== '/new-article' && !slug) {
+      history.push('/new-article');
+    }
     if (!slug) {
       reset();
       setLoading(false);
