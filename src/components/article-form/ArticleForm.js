@@ -40,7 +40,6 @@ const ArticleForm = () => {
     } else {
       renderArticle();
     }
-    reset();
   }, [slug]);
 
   const {

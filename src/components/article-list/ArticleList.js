@@ -55,6 +55,7 @@ const ArticleList = () => {
       </section>
     );
   }
+
   if (error) {
     return (
       <section className={classes['article-list']}>

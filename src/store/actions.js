@@ -9,10 +9,21 @@ import {
   updateUser as update,
 } from '../services/realworld-service';
 
+import {
+  AUTH,
+  GET_ARTICLE,
+  GET_ARTICLES,
+  LOGIN,
+  LOG_OUT,
+  REGISTER_NEW_USER,
+  UPDATE_ARTICLE_FAVORITES_INFO,
+  UPDATE_USER,
+} from './types';
+
 export const getArticles = (page, key = undefined) => {
   return async (dispatch) => {
     dispatch({
-      type: 'GET_ARTICLES',
+      type: GET_ARTICLES,
       payload: await articles(page, key),
     });
   };
@@ -21,7 +32,7 @@ export const getArticles = (page, key = undefined) => {
 export const getArticle = (slug, key = undefined) => {
   return async (dispatch) => {
     dispatch({
-      type: 'GET_ARTICLE',
+      type: GET_ARTICLE,
       payload: await article(slug, key),
     });
   };
@@ -30,7 +41,7 @@ export const getArticle = (slug, key = undefined) => {
 export const registerNewUser = (userdata) => {
   return async (dispatch) => {
     dispatch({
-      type: 'REGISTER_NEW_USER',
+      type: REGISTER_NEW_USER,
       payload: await register(userdata),
     });
   };
@@ -41,13 +52,13 @@ export const checkAuth = (userData) => {
     return async (dispatch) => {
       const { token } = userData;
       dispatch({
-        type: 'AUTH',
+        type: AUTH,
         payload: await getUserInfo(token),
       });
     };
   }
   return {
-    type: 'AUTH',
+    type: AUTH,
     payload: userData,
   };
 };
@@ -55,7 +66,7 @@ export const checkAuth = (userData) => {
 export const logOut = () => {
   localStorage.removeItem('user');
   return {
-    type: 'LOG_OUT',
+    type: LOG_OUT,
     payload: {},
   };
 };
@@ -63,7 +74,7 @@ export const logOut = () => {
 export const loginUser = (userdata) => {
   return async (dispatch) => {
     dispatch({
-      type: 'LOGIN',
+      type: LOGIN,
       payload: await login(userdata),
     });
   };
@@ -72,7 +83,7 @@ export const loginUser = (userdata) => {
 export const updateUser = (userdata, key) => {
   return async (dispatch) => {
     dispatch({
-      type: 'UPDATE_USER',
+      type: UPDATE_USER,
       payload: await update(userdata, key),
     });
   };
@@ -81,7 +92,7 @@ export const updateUser = (userdata, key) => {
 export const favoriteArticle = (slug, key) => {
   return async (dispatch) => {
     dispatch({
-      type: 'UPDATE_ARTICLE_FAVORITES_INFO',
+      type: UPDATE_ARTICLE_FAVORITES_INFO,
       payload: await favorite(slug, key),
     });
   };
@@ -90,7 +101,7 @@ export const favoriteArticle = (slug, key) => {
 export const unfavoriteArticle = (slug, key) => {
   return async (dispatch) => {
     dispatch({
-      type: 'UPDATE_ARTICLE_FAVORITES_INFO',
+      type: UPDATE_ARTICLE_FAVORITES_INFO,
       payload: await unfavorite(slug, key),
     });
   };

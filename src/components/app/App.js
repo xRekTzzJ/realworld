@@ -18,6 +18,7 @@ import SignUp from '../sign-up';
 const App = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
+  const auth = useSelector((state) => state.user.token);
 
   const initialState = async () => {
     try {
@@ -28,8 +29,6 @@ const App = () => {
       setLoading(false);
     }
   };
-
-  const auth = useSelector((state) => state.user.token);
 
   useEffect(() => {
     initialState();

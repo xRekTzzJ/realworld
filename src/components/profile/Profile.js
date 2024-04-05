@@ -6,13 +6,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-import classes from '../../index.module.scss';
 import { updateUser } from '../../store/actions';
+import classes from '../sign-up/form.module.scss';
 
 const Profile = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const user = useSelector((state) => state.user);
+  const token = useSelector((state) => state.user.token);
   const {
     register,
     handleSubmit,
@@ -28,8 +30,6 @@ const Profile = () => {
       image: user.image,
     },
   });
-  const dispatch = useDispatch();
-  const token = useSelector((state) => state.user.token);
 
   const onSubmit = async (data) => {
     setLoading(true);

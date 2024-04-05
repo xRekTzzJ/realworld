@@ -13,6 +13,7 @@ import classes from './form.module.scss';
 const SignUp = () => {
   const history = useHistory();
   const [loading, setLoading] = useState(false);
+  const [agree, setAgree] = useState(false);
   const dispatch = useDispatch();
   const {
     register,
@@ -24,8 +25,8 @@ const SignUp = () => {
   } = useForm({
     mode: 'onChange',
   });
-  const [agree, setAgree] = useState(false);
   const buttonClasses = agree ? null : classes['form__button_disabled'];
+
   const onSubmit = async ({ username, email, password }) => {
     setLoading(true);
 

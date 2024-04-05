@@ -11,12 +11,12 @@ import classes from './header.module.scss';
 
 const Header = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const auth = useSelector((state) => state.user.token);
   const username = useSelector((state) => state.user.username);
   const userImage = useSelector((state) => state.user.image);
-
-  const history = useHistory();
   const [logOutModal, setLogOutModal] = useState(false);
+  const [imageError, setImageError] = useState(false);
 
   const SignContainer = () => {
     return (
@@ -26,8 +26,6 @@ const Header = () => {
       </div>
     );
   };
-
-  const [imageError, setImageError] = useState(false);
 
   const renderImage = () => {
     if (imageError || !userImage) {
