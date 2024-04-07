@@ -10,7 +10,7 @@ import Rate from '../rate';
 
 import classes from './article-item.module.scss';
 
-const articleItem = ({ image, username, title, description, favoritesCount, favorited, tagList, createdAt, slug }) => {
+const ArticleItem = ({ image, username, title, description, favoritesCount, favorited, tagList, createdAt, slug }) => {
   const history = useHistory();
   const [imageError, setImageError] = useState(false);
   const auth = useSelector((state) => state.user.token);
@@ -81,4 +81,4 @@ const articleItem = ({ image, username, title, description, favoritesCount, favo
   );
 };
 
-export default articleItem;
+export default ArticleItem;
