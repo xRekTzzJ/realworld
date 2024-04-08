@@ -213,6 +213,10 @@ const ArticleForm = () => {
                 : null
             }
             {...register('title', {
+              pattern: {
+                value: /^[^\s]+(?:$|.*[^\s]+$)/,
+                message: 'The title should not start and end with a space',
+              },
               maxLength: {
                 value: 110,
                 message: 'Maximum of 110 characters.',
@@ -251,6 +255,10 @@ const ArticleForm = () => {
             }
             {...register('description', {
               required: 'Description field is require.',
+              pattern: {
+                value: /^[^\s]+(?:$|.*[^\s]+$)/,
+                message: 'The description should not start and end with a space',
+              },
               maxLength: {
                 value: 250,
                 message: 'Maximum of 250 characters.',
@@ -262,7 +270,7 @@ const ArticleForm = () => {
             })}
           />
           <label
-            htmlFor="title"
+            htmlFor="description"
             style={{
               visibility: errors.description ? 'visible' : 'hidden',
               color: '#F5222D',
@@ -287,6 +295,10 @@ const ArticleForm = () => {
                 : null
             }
             {...register('body', {
+              pattern: {
+                value: /^[^\s]+(?:$|.*[^\s]+$)/,
+                message: 'The text should not start and end with a space',
+              },
               required: 'Text field is require.',
               minLength: {
                 value: 10,
