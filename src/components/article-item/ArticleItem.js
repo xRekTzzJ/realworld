@@ -49,11 +49,20 @@ const ArticleItem = ({ image, username, title, description, favoritesCount, favo
   };
 
   return (
-    <div className={classes['article-item']}>
+    <div className={classes['article-item']} onClick={clickHandler}>
       <div className={classes['article-item__header']}>
         <div className={classes['article-item__info-container']}>
-          <h2 className={classes['article-item__title']} onClick={clickHandler}>
-            {title.trim()}
+          <h2
+            className={classes['article-item__title']}
+            style={
+              !title
+                ? {
+                    opacity: '0.5',
+                  }
+                : null
+            }
+          >
+            {title ? title : 'The user has not added a title yet.'}
           </h2>
         </div>
         <div className={classes['article-item__tag-container']}>
@@ -69,7 +78,17 @@ const ArticleItem = ({ image, username, title, description, favoritesCount, favo
           {renderImage()}
         </div>
       </div>
-      <p onClick={clickHandler}>{description}</p>
+      <p
+        style={
+          !description
+            ? {
+                opacity: '0.5',
+              }
+            : null
+        }
+      >
+        {description ? description : 'The user has not added a description yet.'}
+      </p>
       <Rate
         auth={auth}
         onLikeLoading={onLikeLoading}

@@ -155,7 +155,18 @@ const Article = () => {
         </div>
       )}
       <div className={classes['article__header']}>
-        <h2 className={classes['article__title']}>{title}</h2>
+        <h2
+          className={classes['article__title']}
+          style={
+            !title
+              ? {
+                  opacity: '0.5',
+                }
+              : null
+          }
+        >
+          {title ? title : 'The user has not added a title yet.'}
+        </h2>
         <ul className={classes['article__tag-container']}>
           {tagList.map((i, index) => {
             if (index < 10 && i !== null && i.length) {
@@ -170,7 +181,18 @@ const Article = () => {
         </div>
       </div>
       <div className={classes['article__description-container']}>
-        <p className={classes['article__description']}>{description}</p>
+        <p
+          className={classes['article__description']}
+          style={
+            !description
+              ? {
+                  opacity: '0.5',
+                }
+              : null
+          }
+        >
+          {description ? description : 'The user has not added a description yet.'}
+        </p>
         <Rate
           auth={token}
           onLikeLoading={onLikeLoading}
