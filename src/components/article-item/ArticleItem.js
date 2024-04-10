@@ -49,10 +49,11 @@ const ArticleItem = ({ image, username, title, description, favoritesCount, favo
   };
 
   return (
-    <div className={classes['article-item']} onClick={clickHandler}>
+    <div className={classes['article-item']}>
       <div className={classes['article-item__header']}>
         <div className={classes['article-item__info-container']}>
           <h2
+            onClick={clickHandler}
             className={classes['article-item__title']}
             style={
               !title
@@ -79,6 +80,7 @@ const ArticleItem = ({ image, username, title, description, favoritesCount, favo
         </div>
       </div>
       <p
+        onClick={clickHandler}
         style={
           !description
             ? {
